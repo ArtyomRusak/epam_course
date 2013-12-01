@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Core", "AR.EPAM.Core\AR.EPAM.Core.csproj", "{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.EFData", "AR.EPAM.EFData\AR.EPAM.EFData.csproj", "{A326D411-5F9E-430A-BF06-3E07FBA264F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Tests", "AR.EPAM.Tests\AR.EPAM.Tests.csproj", "{2E3B2FEC-7906-43E5-9486-86775F705872}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A326D411-5F9E-430A-BF06-3E07FBA264F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A326D411-5F9E-430A-BF06-3E07FBA264F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A326D411-5F9E-430A-BF06-3E07FBA264F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A326D411-5F9E-430A-BF06-3E07FBA264F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3B2FEC-7906-43E5-9486-86775F705872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3B2FEC-7906-43E5-9486-86775F705872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3B2FEC-7906-43E5-9486-86775F705872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3B2FEC-7906-43E5-9486-86775F705872}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

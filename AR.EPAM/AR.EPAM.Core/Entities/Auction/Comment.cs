@@ -14,7 +14,7 @@ namespace AR.EPAM.Core.Entities.Auction
         public string Date { get; set; }
         public virtual User User { get; set; }
         public int UserId { get; set; }
-        public virtual Lot Lot { get; set; }
-        public int LotId { get; set; }
+        //public virtual Lot Lot { get; set; }
+        //public int LotId { get; set; }
     }
 }
