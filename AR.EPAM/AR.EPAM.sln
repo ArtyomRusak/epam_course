@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Core", "AR.EPAM.Core\AR.EPAM.Core.csproj", "{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.EFData", "AR.EPAM.EFData\AR.EPAM.EFData.csproj", "{A326D411-5F9E-430A-BF06-3E07FBA264F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Tests", "AR.EPAM.Tests\AR.EPAM.Tests.csproj", "{2E3B2FEC-7906-43E5-9486-86775F705872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Infrastructure", "AR.EPAM.Infrastructure\AR.EPAM.Infrastructure.csproj", "{42580687-52A1-4D38-82BA-E3A8E8896DE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{2E3B2FEC-7906-43E5-9486-86775F705872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E3B2FEC-7906-43E5-9486-86775F705872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E3B2FEC-7906-43E5-9486-86775F705872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}</ProjectGuid>
+    <ProjectGuid>{42580687-52A1-4D38-82BA-E3A8E8896DE3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AR.EPAM.Core</RootNamespace>
-    <AssemblyName>AR.EPAM.Core</AssemblyName>
+    <RootNamespace>AR.EPAM.Infrastructure</RootNamespace>
+    <AssemblyName>AR.EPAM.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,17 +39,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Auction\Comment.cs" />
-    <Compile Include="Entities\Auction\Currency.cs" />
-    <Compile Include="Entities\Auction\Lot.cs" />
-    <Compile Include="Entities\Auction\Section.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Entity`1.cs" />
-    <Compile Include="Entities\Membership\ComplexTypes\ContactData.cs" />
-    <Compile Include="Entities\Membership\Role.cs" />
-    <Compile Include="Entities\Membership\User.cs" />
-    <Compile Include="InterfaceRepositories\IRepository.cs" />
-    <Compile Include="InterfaceRepositories\IRepository`2.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Guard\Exceptions\ExceptionBase.cs" />
+    <Compile Include="Guard\Guard.Assignable.cs" />
+    <Compile Include="Guard\Guard.Collections.ConsequentiallyNotEquals.cs" />
+    <Compile Include="Guard\Guard.Collections.Empty.cs" />
+    <Compile Include="Guard\Guard.Collections.СonsequentiallyEquals.cs" />
+    <Compile Include="Guard\Guard.Equals.cs" />
+    <Compile Include="Guard\Guard.ExceptionThrowing.cs" />
+    <Compile Include="Guard\Guard.False.cs" />
+    <Compile Include="Guard\Guard.Greater.cs" />
+    <Compile Include="Guard\Guard.GreaterOrEquals.cs" />
+    <Compile Include="Guard\Guard.InRange.cs" />
+    <Compile Include="Guard\Guard.Less.cs" />
+    <Compile Include="Guard\Guard.LessOrEquals.cs" />
+    <Compile Include="Guard\Guard.Negatives.Int32.cs" />
+    <Compile Include="Guard\Guard.NotAssignable.cs" />
+    <Compile Include="Guard\Guard.NotEquals.cs" />
+    <Compile Include="Guard\Guard.NotInRange.cs" />
+    <Compile Include="Guard\Guard.NullReference.cs" />
+    <Compile Include="Guard\Guard.StringIsNullOrEmpty.cs" />
+    <Compile Include="Guard\Guard.True.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

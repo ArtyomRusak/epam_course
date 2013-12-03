@@ -4,7 +4,7 @@ using AR.EPAM.Core.Entities.Membership.ComplexTypes;
 
 namespace AR.EPAM.Core.Entities.Membership
 {
-    public class User : Entity
+    public class User : Entity<int>
     {
         public User()
         {
@@ -12,7 +12,6 @@ namespace AR.EPAM.Core.Entities.Membership
             Lots = new HashSet<Lot>();
         }
 
-        public int Id { get; set; }
         public string UserName { get; set; }
         public ContactData ContactData { get; set; }
         public string Password { get; set; }
