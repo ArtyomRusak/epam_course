@@ -12,12 +12,11 @@ using AR.EPAM.Infrastructure.Guard;
 
 namespace AR.EPAM.EFData.Repositories
 {
-    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Entity
+    public class Repository<TEntity, TKey> : Repository, IRepository<TEntity, TKey> where TEntity : Entity
     {
         #region [Private members]
 
-        private AuctionContext _context;
-        private DbSet<TEntity> _entities;
+        private readonly DbSet<TEntity> _entities;
 
         #endregion
 
@@ -25,15 +24,9 @@ namespace AR.EPAM.EFData.Repositories
         #region [Ctor's]
 
         public Repository(AuctionContext context)
+            : base(context)
         {
-            _context = context;
-            _entities = _context.Set<TEntity>();
-        }
-
-        public Repository()
-        {
-            _context = new AuctionContext();
-            _entities = _context.Set<TEntity>();
+            _entities = Context.Set<TEntity>();
         }
 
         #endregion
@@ -53,7 +46,7 @@ namespace AR.EPAM.EFData.Repositories
             Guard.AgainstNullReference(value, "value");
 
             _entities.Attach(value);
-            _context.Entry(value).State = EntityState.Modified;
+            Context.Entry(value).State = EntityState.Modified;
         }
 
         public void Remove(TEntity value)
@@ -71,7 +64,7 @@ namespace AR.EPAM.EFData.Repositories
             {
                 return _entities.Find(id);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -86,12 +79,14 @@ namespace AR.EPAM.EFData.Repositories
 
         public IQueryable<TEntity> All()
         {
-            throw new NotImplementedException();
+            return _entities;
         }
 
         public IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            Guard.AgainstNullReference(predicate, "predicate");
+
+            return _entities.Where(predicate);
         }
 
         #endregion

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Tests", "AR.EPAM.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Infrastructure", "AR.EPAM.Infrastructure\AR.EPAM.Infrastructure.csproj", "{42580687-52A1-4D38-82BA-E3A8E8896DE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.EPAM.Services", "AR.EPAM.Services\AR.EPAM.Services.csproj", "{12982907-6896-4C10-9169-119CCEA9E648}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42580687-52A1-4D38-82BA-E3A8E8896DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12982907-6896-4C10-9169-119CCEA9E648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12982907-6896-4C10-9169-119CCEA9E648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12982907-6896-4C10-9169-119CCEA9E648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12982907-6896-4C10-9169-119CCEA9E648}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

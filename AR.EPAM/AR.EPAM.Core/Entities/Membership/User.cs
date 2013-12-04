@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.Core.Entities.Membership.ComplexTypes;
 
@@ -14,9 +15,17 @@ namespace AR.EPAM.Core.Entities.Membership
 
         public string UserName { get; set; }
         public ContactData ContactData { get; set; }
-        public string Password { get; set; }
+        public int Password { get; set; }
+        public string PasswordSalt { get; set; }
         public string Email { get; set; }
         public ICollection<Role> Roles { get; set; }
         public virtual ICollection<Lot> Lots { get; set; }
+        public bool IsLogged { get; set; }
+
+        public void SetPassword(string password)
+        {
+            var passwordHash = (password + this.PasswordSalt).GetHashCode();
+            Password = passwordHash;
+        }
     }
 }

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{678CF5BF-04A0-4FDE-AFDE-5CDD5E7C5A54}</ProjectGuid>
+    <ProjectGuid>{12982907-6896-4C10-9169-119CCEA9E648}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AR.EPAM.Core</RootNamespace>
-    <AssemblyName>AR.EPAM.Core</AssemblyName>
+    <RootNamespace>AR.EPAM.Services</RootNamespace>
+    <AssemblyName>AR.EPAM.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,26 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bindings\Bindings.cs" />
-    <Compile Include="Bindings\ServiceLocator.cs" />
-    <Compile Include="Entities\Auction\Comment.cs" />
-    <Compile Include="Entities\Auction\Currency.cs" />
-    <Compile Include="Entities\Auction\Lot.cs" />
-    <Compile Include="Entities\Auction\Section.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Entity`1.cs" />
-    <Compile Include="Entities\Membership\ComplexTypes\ContactData.cs" />
-    <Compile Include="Entities\Membership\Role.cs" />
-    <Compile Include="Entities\Membership\User.cs" />
-    <Compile Include="Exceptions\RepositoryException.cs" />
-    <Compile Include="InterfaceRepositories\IRepository.cs" />
-    <Compile Include="InterfaceRepositories\IRepository`2.cs" />
-    <Compile Include="IRepositoryFactory.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Exceptions\MembershipServiceException.cs" />
+    <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="MembershipServices\MembershipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\AR.EPAM.Core\AR.EPAM.Core.csproj">
+      <Project>{678cf5bf-04a0-4fde-afde-5cdd5e7c5a54}</Project>
+      <Name>AR.EPAM.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AR.EPAM.Infrastructure\AR.EPAM.Infrastructure.csproj">
+      <Project>{42580687-52a1-4d38-82ba-e3a8e8896de3}</Project>
+      <Name>AR.EPAM.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

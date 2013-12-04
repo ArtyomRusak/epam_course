@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EFContext\AuctionContext.cs" />
+    <Compile Include="EFContext\Initializers\RecreateIfModelChanges.cs" />
     <Compile Include="EFContext\Mappings\Auction\CommentMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\CurrencyMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\LotMap.cs" />
@@ -56,10 +58,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\Repository`2.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EFContext\Initializers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
