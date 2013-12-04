@@ -9,7 +9,7 @@ namespace AR.EPAM.Services.Exceptions
 {
     public class MembershipServiceException : ServiceException
     {
-        public string Message { get; private set; }
+        public string ErrorMessage { get; private set; }
 
         public MembershipServiceException()
         {
@@ -18,7 +18,7 @@ namespace AR.EPAM.Services.Exceptions
 
         public MembershipServiceException(string message)
         {
-            Message = message;
+            ErrorMessage = message;
         }
     }
 }

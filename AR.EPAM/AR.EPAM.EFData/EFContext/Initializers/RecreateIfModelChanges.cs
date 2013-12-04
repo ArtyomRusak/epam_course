@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using AR.EPAM.Core.Entities.Membership;
 
 namespace AR.EPAM.EFData.EFContext.Initializers
 {
@@ -46,7 +47,8 @@ namespace AR.EPAM.EFData.EFContext.Initializers
 
         protected void Seed(AuctionContext context)
         {
-            
+            context.Roles.Add(new Role() {Name = "User"});
+            context.Roles.Add(new Role() {Name = "Administrator"});
         }
 
         #endregion

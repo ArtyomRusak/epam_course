@@ -42,8 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bindings\Bindings.cs" />
-    <Compile Include="Bindings\ServiceLocator.cs" />
     <Compile Include="Entities\Auction\Comment.cs" />
     <Compile Include="Entities\Auction\Currency.cs" />
     <Compile Include="Entities\Auction\Lot.cs" />
