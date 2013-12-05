@@ -9,7 +9,7 @@ using AR.EPAM.Core.InterfaceRepositories;
 namespace AR.EPAM.Core
 {
     public interface IRepositoryFactory
-    {
+    {   
         IRepository<User, int> GetUserRepository();
         IRepository<Role, int> GetRoleRepository();
     }
