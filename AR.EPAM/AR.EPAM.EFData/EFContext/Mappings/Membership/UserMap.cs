@@ -9,8 +9,6 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Membership
         {
             HasKey(e => e.Id);
             Property(e => e.UserName).IsRequired().HasMaxLength(30);
-            Property(e => e.ContactData.City).HasMaxLength(30);
-            Property(e => e.ContactData.PhoneNumber).HasMaxLength(15);
             Property(e => e.Password).IsRequired();
             Property(e => e.PasswordSalt).IsRequired();
             Property(e => e.Email).HasMaxLength(40).IsRequired();

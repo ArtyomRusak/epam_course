@@ -7,9 +7,8 @@ using AR.EPAM.Core.Entities.Membership;
 
 namespace AR.EPAM.Core.Entities.Auction
 {
-    public class Lot : Entity
+    public class Lot : Entity<long>
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public double StartPrice { get; set; }
         public double CurrentPrice { get; set; }
@@ -21,5 +20,6 @@ namespace AR.EPAM.Core.Entities.Auction
         public int OwnerId { get; set; }
         public virtual Section Section { get; set; }
         public int SectionId { get; set; }
+        public ICollection<Bid> Bids { get; set; }
     }
 }

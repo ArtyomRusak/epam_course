@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.Core.Entities.Membership;
-using AR.EPAM.Core.Entities.Membership.ComplexTypes;
 using AR.EPAM.EFData.EFContext.Mappings.Auction;
 using AR.EPAM.EFData.EFContext.Mappings.Membership;
 
@@ -20,19 +19,21 @@ namespace AR.EPAM.EFData.EFContext
         public DbSet<Section> Sections { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Bid> Bids { get; set; }
 
         #region Overrides of DbContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.ComplexType<ContactData>();
-
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new LotMap());
             modelBuilder.Configurations.Add(new SectionMap());
             modelBuilder.Configurations.Add(new CurrencyMap());
             modelBuilder.Configurations.Add(new CommentMap());
+            modelBuilder.Configurations.Add(new ProfileMap());
+            modelBuilder.Configurations.Add(new BidMap());
 
             base.OnModelCreating(modelBuilder);
         }

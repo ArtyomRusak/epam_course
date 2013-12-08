@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AR.EPAM.Core.Entities;
+using AR.EPAM.Core.Exceptions;
 using AR.EPAM.Core.InterfaceRepositories;
 using AR.EPAM.EFData.EFContext;
 using AR.EPAM.Infrastructure.Guard;
@@ -66,7 +67,7 @@ namespace AR.EPAM.EFData.Repositories
             }
             catch (Exception ex)
             {
-                throw;
+                throw new RepositoryException(ex.Message);
             }
         }
 
@@ -74,7 +75,14 @@ namespace AR.EPAM.EFData.Repositories
         {
             Guard.AgainstNullReference(predicate, "predicate");
 
-            return _entities.Where(predicate).SingleOrDefault();
+            try
+            {
+                return _entities.Where(predicate).SingleOrDefault();
+            }
+            catch (Exception e)
+            {
+                throw new RepositoryException(e.Message);
+            }
         }
 
         public IQueryable<TEntity> All()

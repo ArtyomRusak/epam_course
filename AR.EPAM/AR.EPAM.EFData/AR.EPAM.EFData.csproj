@@ -49,10 +49,12 @@
   <ItemGroup>
     <Compile Include="EFContext\AuctionContext.cs" />
     <Compile Include="EFContext\Initializers\RecreateIfModelChanges.cs" />
+    <Compile Include="EFContext\Mappings\Auction\BidMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\CommentMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\CurrencyMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\LotMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\SectionMap.cs" />
+    <Compile Include="EFContext\Mappings\Membership\ProfileMap.cs" />
     <Compile Include="EFContext\Mappings\Membership\RoleMap.cs" />
     <Compile Include="EFContext\Mappings\Membership\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

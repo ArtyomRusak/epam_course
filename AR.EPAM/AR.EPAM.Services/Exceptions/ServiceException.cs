@@ -7,9 +7,21 @@ using AR.EPAM.Infrastructure.Guard.Exceptions;
 
 namespace AR.EPAM.Services.Exceptions
 {
-    public class ServiceException : ExceptionBase
+    public class ServiceException : Exception
     {
-        public ServiceException()
+        protected ServiceException()
+        {
+
+        }
+
+        public ServiceException(string message)
+            : base(message)
+        {
+
+        }
+
+        public ServiceException(Exception exception)
+            : base("See inner exception.", exception)
         {
 
         }

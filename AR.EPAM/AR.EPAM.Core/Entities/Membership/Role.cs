@@ -2,14 +2,13 @@
 
 namespace AR.EPAM.Core.Entities.Membership
 {
-    public class Role : Entity
+    public class Role : Entity<int>
     {
         public Role()
         {
             Users = new HashSet<User>();
         }
 
-        public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<User> Users { get; set; } 
     }

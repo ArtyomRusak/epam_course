@@ -9,16 +9,19 @@ namespace AR.EPAM.Services.Exceptions
 {
     public class MembershipServiceException : ServiceException
     {
-        public string ErrorMessage { get; private set; }
-
-        public MembershipServiceException()
+        protected MembershipServiceException()
         {
             
         }
 
-        public MembershipServiceException(string message)
+        public MembershipServiceException(string message):base(message)
         {
-            ErrorMessage = message;
+            
+        }
+
+        public MembershipServiceException(Exception exception):base(exception)
+        {
+            
         }
     }
 }

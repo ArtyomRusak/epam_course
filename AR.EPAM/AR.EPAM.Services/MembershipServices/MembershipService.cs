@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,14 +29,17 @@ namespace AR.EPAM.Services.MembershipServices
             //email validation.
 
             var role = GetRoleByName(roleName);
-            Guard.AgainstNullReference<MembershipServiceException>(role, "role", "Role doesn't exist.");
+            if (role == null)
+            {
+                throw new MembershipServiceException("Role doesn't exist");
+            }
 
             var user = GetUserByEmail(email);
             if (user != null)
             {
                 throw new MembershipServiceException("User is registered.");
             }
-            user = new User {Email = email, UserName = userName};
+            user = new User { Email = email, UserName = userName };
 
             Guard.AgainstEmptyStringOrNull(password, "password");
             user.SetPassword(password);
@@ -50,7 +54,10 @@ namespace AR.EPAM.Services.MembershipServices
         {
             //email validation.
             var user = GetUserByEmail(email);
-            Guard.AgainstNullReference<MembershipServiceException>(user, "user", "User doesn't exist.");
+            if (user == null)
+            {
+                throw new MembershipServiceException("User doesn't exist.");
+            }
 
             user.IsLogged = true;
             UpdateUser(user);
@@ -60,8 +67,11 @@ namespace AR.EPAM.Services.MembershipServices
         public void ResetPassword(string email, string password, string newPassword)
         {
             var user = GetUserByEmail(email);
-            Guard.AgainstNullReference<MembershipServiceException>(user, "user", "User doesn't exist.");
-            Guard.AgainstInequalityOfValues(user.Password, password.GetHashCode());
+            if (user == null)
+            {
+                throw new MembershipServiceException("User doesn't exist.");
+            }
+            Guard.AgainstInequalityOfValues(user.Password, (password + user.PasswordSalt).GetHashCode(), "Password is not new.");
 
             user.PasswordSalt = DateTime.Now.ToString();
             user.SetPassword(newPassword);
@@ -78,8 +88,15 @@ namespace AR.EPAM.Services.MembershipServices
         public User GetUser(int id)
         {
             var userRepository = _factoryOfRepositories.GetUserRepository();
-            var user = userRepository.GetEntityById(id);
-            return user;
+            try
+            {
+                var user = userRepository.GetEntityById(id);
+                return user;
+            }
+            catch (Exception e)
+            {
+                throw new ServiceException(e.Message);
+            }
         }
 
         private User GetUserByEmail(string email)
@@ -94,11 +111,11 @@ namespace AR.EPAM.Services.MembershipServices
             }
             catch (ArgumentException ex)
             {
-                throw new RepositoryException(ex);
+                throw new MembershipServiceException(ex.Message);
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
-                throw new RepositoryException(ex.Message);
+                throw new MembershipServiceException(ex.Message);
             }
         }
 
@@ -113,11 +130,11 @@ namespace AR.EPAM.Services.MembershipServices
             }
             catch (ArgumentException ex)
             {
-                throw new RepositoryException(ex);
+                throw new ServiceException(ex);
             }
             catch (Exception ex)
             {
-                throw new RepositoryException(ex.Message);
+                throw new MembershipServiceException(ex.Message);
             }
         }
 

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AR.EPAM.Core.Entities.Auction
 {
-    public class Section : Entity
+    public class Section : Entity<int>
     {
-        public int Id { get; set; }
         public string Name { get; set; }
+        public int? SectionId { get; set; }
         public virtual ICollection<Lot> Lots { get; set; }
     }
 }

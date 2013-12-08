@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using AR.EPAM.Core.Entities.Auction;
-using AR.EPAM.Core.Entities.Membership.ComplexTypes;
 
 namespace AR.EPAM.Core.Entities.Membership
 {
@@ -14,7 +13,6 @@ namespace AR.EPAM.Core.Entities.Membership
         }
 
         public string UserName { get; set; }
-        public ContactData ContactData { get; set; }
         public int Password { get; set; }
         public string PasswordSalt { get; set; }
         public string Email { get; set; }
