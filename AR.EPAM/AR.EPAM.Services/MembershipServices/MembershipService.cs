@@ -20,6 +20,9 @@ namespace AR.EPAM.Services.MembershipServices
 
         public MembershipService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
+            Guard.AgainstNullReference(unitOfWork, "unitOfWork");
+            Guard.AgainstNullReference(factoryOfRepositories, "factoryOfRepositories");
+
             _unitOfWork = unitOfWork;
             _factoryOfRepositories = factoryOfRepositories;
         }
