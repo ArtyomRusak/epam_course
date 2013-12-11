@@ -11,5 +11,7 @@ namespace AR.EPAM.Core
         void Commit();
 
         void Rollback();
+
+        void PreSave();
     }
 }

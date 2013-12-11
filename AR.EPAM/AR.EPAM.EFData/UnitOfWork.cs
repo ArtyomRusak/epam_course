@@ -93,6 +93,19 @@ namespace AR.EPAM.EFData
 
         public void Dispose()
         {
+            if (_isTransactionActive)
+            {
+                try
+                {
+                    _context.SaveChanges();
+                    _transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    _transaction.Rollback();
+                    throw new RepositoryException(e);
+                }
+            }
             if (!_disposed)
             {
                 _context.Dispose();
@@ -130,19 +143,9 @@ namespace AR.EPAM.EFData
             }
         }
 
-        #endregion
-
-        #region [UnitOfWork's members]
-
-        public bool SetNewTransaction()
+        public void PreSave()
         {
-            if (!_isTransactionActive && !_disposed)
-            {
-                _transaction = _context.Database.BeginTransaction();
-                _isTransactionActive = true;
-                return true;
-            }
-            return false;
+            _context.SaveChanges();
         }
 
         #endregion
