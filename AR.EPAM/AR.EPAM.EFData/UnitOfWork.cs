@@ -19,7 +19,7 @@ namespace AR.EPAM.EFData
         #region [Private members]
 
         private readonly AuctionContext _context;
-        private DbContextTransaction _transaction;
+        private readonly DbContextTransaction _transaction;
         private IRepository<User, int> _userRepository;
         private IRepository<Role, int> _roleRepository;
         private IRepository<Profile, int> _profileRepository;
