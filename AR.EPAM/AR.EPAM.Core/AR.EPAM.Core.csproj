@@ -48,7 +48,9 @@
     <Compile Include="Entities\Auction\Lot.cs" />
     <Compile Include="Entities\Auction\Section.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntityWithVersion.cs" />
     <Compile Include="Entities\Entity`1.cs" />
+    <Compile Include="Entities\IVersion.cs" />
     <Compile Include="Entities\Membership\Profile.cs" />
     <Compile Include="Entities\Membership\Role.cs" />
     <Compile Include="Entities\Membership\User.cs" />

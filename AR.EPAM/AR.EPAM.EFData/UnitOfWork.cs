@@ -99,10 +99,16 @@ namespace AR.EPAM.EFData
                 {
                     _context.SaveChanges();
                     _transaction.Commit();
+                    _isTransactionActive = false;
                 }
                 catch (Exception e)
                 {
                     _transaction.Rollback();
+                    _isTransactionActive = false;
+
+                    _context.Dispose();
+                    _disposed = true;
+
                     throw new RepositoryException(e);
                 }
             }
@@ -131,6 +137,7 @@ namespace AR.EPAM.EFData
             catch (Exception e)
             {
                 _transaction.Rollback();
+                _isTransactionActive = false;
                 throw new RepositoryException(e.Message);
             }
         }
@@ -140,6 +147,7 @@ namespace AR.EPAM.EFData
             if (_isTransactionActive && !_disposed)
             {
                 _transaction.Rollback();
+                _isTransactionActive = false;
             }
         }
 

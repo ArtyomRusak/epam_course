@@ -39,7 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuctionServices\LotService.cs" />
+    <Compile Include="AuctionServices\SectionService.cs" />
+    <Compile Include="Exceptions\LotServiceException.cs" />
     <Compile Include="Exceptions\MembershipServiceException.cs" />
+    <Compile Include="Exceptions\SectionServiceException.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="MembershipServices\MembershipService.cs" />
@@ -55,9 +59,7 @@
       <Name>AR.EPAM.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AuctionService\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
