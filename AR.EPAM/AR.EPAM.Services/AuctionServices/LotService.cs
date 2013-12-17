@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AR.EPAM.Core;
 using AR.EPAM.Core.Entities.Auction;
+using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.Infrastructure.Guard;
 using AR.EPAM.Services.Exceptions;
 
@@ -116,6 +119,25 @@ namespace AR.EPAM.Services.AuctionServices
         //    //return lotRepository.Filter(e => e.SectionId == sectionId).ToList();
         //    var section = sectionRepository.GetEntityById(sectionId);
         //}
+
+        public List<Lot> GetListOfLotsWhereUserTakeComments(int userId)
+        {
+            var commentRepository = _factoryOfRepositories.GetCommentRepository();
+            return commentRepository.All().Where(e => e.UserId == userId).Select(e => e.Lot).Distinct().ToList();
+        }
+
+        public List<Lot> GetLotsWhereUserIsOwner(int userId)
+        {
+            var lotRepository = _factoryOfRepositories.GetLotRepository();
+            try
+            {
+                return lotRepository.Filter(e => e.OwnerId == userId).ToList();
+            }
+            catch (Exception exception)
+            {
+                throw new LotServiceException(exception.Message);
+            }
+        } 
 
         #endregion
 
