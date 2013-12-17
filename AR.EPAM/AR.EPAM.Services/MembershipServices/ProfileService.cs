@@ -34,6 +34,7 @@ namespace AR.EPAM.Services.MembershipServices
 
         #endregion
 
+
         #region [ProfileService's members]
 
         public Profile CreateProfile(string name, string surname, string patronymic, string city, string phoneNumber, int userId)
@@ -50,7 +51,14 @@ namespace AR.EPAM.Services.MembershipServices
 
             var profileRepository = _factoryOfRepositories.GetProfileRepository();
             profileRepository.Create(profile);
-            _unitOfWork.PreSave();
+            try
+            {
+                _unitOfWork.PreSave();
+            }
+            catch (Exception e)
+            {
+                throw new ServiceException(e);
+            }
             return profile;
         }
 

@@ -89,6 +89,7 @@ namespace AR.EPAM.EFData
 
         #endregion
 
+
         #region Implementation of IDisposable
 
         public void Dispose()
@@ -120,6 +121,7 @@ namespace AR.EPAM.EFData
         }
 
         #endregion
+
 
         #region Implementation of IUnitOfWork
 

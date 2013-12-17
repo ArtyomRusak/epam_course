@@ -60,6 +60,14 @@ namespace AR.EPAM.Services.MembershipServices
 
             var userRepository = _factoryOfRepositories.GetUserRepository();
             userRepository.Create(user);
+            try
+            {
+                _unitOfWork.PreSave();
+            }
+            catch (Exception e)
+            {
+                throw new ServiceException(e);
+            }
             return user;
         }
 

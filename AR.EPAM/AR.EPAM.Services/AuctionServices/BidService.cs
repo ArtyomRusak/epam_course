@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AR.EPAM.Core;
+using AR.EPAM.Core.Entities.Auction;
+using AR.EPAM.Core.Exceptions;
 using AR.EPAM.Infrastructure.Guard;
+using AR.EPAM.Services.Exceptions;
 
 namespace AR.EPAM.Services.AuctionServices
 {
@@ -31,11 +34,69 @@ namespace AR.EPAM.Services.AuctionServices
 
         #endregion
 
+
         #region [BidService's members]
 
-        public void CreateBid()
+        public Bid CreateBid(double price, int userId, long lotId, int currencyId)
         {
-            
+            var bid = new Bid
+            {
+                Price = price,
+                UserId = userId,
+                LotId = lotId,
+                CurrencyId = currencyId
+            };
+
+            var bidRepository = _factoryOfRepositories.GetBidRepository();
+            bidRepository.Create(bid);
+            try
+            {
+                _unitOfWork.PreSave();
+            }
+            catch (Exception e)
+            {
+                throw new ServiceException(e);
+            }
+            return bid;
+        }
+
+        public Bid GetBidById(long bidId)
+        {
+            var bidRepository = _factoryOfRepositories.GetBidRepository();
+            try
+            {
+                return bidRepository.GetEntityById(bidId);
+            }
+            catch (RepositoryException exception)
+            {
+                throw new BidServiceException(exception.Message);
+            }
+        }
+
+        public List<Bid> GetBidsByUserId(int userId)
+        {
+            var bidRepository = _factoryOfRepositories.GetBidRepository();
+            try
+            {
+                return bidRepository.Filter(e => e.UserId == userId).ToList();
+            }
+            catch (Exception e)
+            {
+                throw new BidServiceException(e.Message);
+            }
+        }
+
+        public Bid GetBidWithHigherPrice()
+        {
+            var bidRepository = _factoryOfRepositories.GetBidRepository();
+            try
+            {
+                return bidRepository.All().OrderBy(e => e.Price).First();
+            }
+            catch (Exception e)
+            {
+                throw new BidServiceException(e.Message);
+            }
         }
 
         #endregion

@@ -33,6 +33,7 @@ namespace AR.EPAM.Services.AuctionServices
 
         #endregion
 
+
         #region [SectionService's exception]
 
         public List<Section> GetMainSections()

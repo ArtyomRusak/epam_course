@@ -41,10 +41,12 @@
   <ItemGroup>
     <Compile Include="AuctionServices\BidService.cs" />
     <Compile Include="AuctionServices\CommentService.cs" />
+    <Compile Include="AuctionServices\CurrencyService.cs" />
     <Compile Include="AuctionServices\LotService.cs" />
     <Compile Include="AuctionServices\SectionService.cs" />
     <Compile Include="Exceptions\BidServiceException.cs" />
     <Compile Include="Exceptions\CommentServiceException.cs" />
+    <Compile Include="Exceptions\CurrencyServiceException.cs" />
     <Compile Include="Exceptions\LotServiceException.cs" />
     <Compile Include="Exceptions\MembershipServiceException.cs" />
     <Compile Include="Exceptions\ProfileServiceException.cs" />

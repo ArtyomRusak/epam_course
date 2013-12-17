@@ -36,6 +36,7 @@ namespace AR.EPAM.Services.AuctionServices
 
         #endregion
 
+
         #region [LotService's members]
 
         public Lot CreateLot(string name, double startPrice, double currentPrice, TimeSpan duration, int currencyId,

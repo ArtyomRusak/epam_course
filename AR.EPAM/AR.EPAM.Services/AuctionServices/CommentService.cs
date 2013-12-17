@@ -35,6 +35,7 @@ namespace AR.EPAM.Services.AuctionServices
 
         #endregion
 
+
         #region [CommentService's members]
 
         public Comment CreateComment(string description, int userId, int lotId)
@@ -49,7 +50,14 @@ namespace AR.EPAM.Services.AuctionServices
 
             var commentRepository = _factoryOfRepositories.GetCommentRepository();
             commentRepository.Create(comment);
-            _unitOfWork.PreSave();
+            try
+            {
+                _unitOfWork.PreSave();
+            }
+            catch (Exception e)
+            {
+                throw new ServiceException(e);
+            }
             return comment;
         }
 
