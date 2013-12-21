@@ -52,7 +52,7 @@ namespace AR.EPAM.Services.MembershipServices
             {
                 throw new MembershipServiceException("User is registered.");
             }
-            user = new User { Email = email, UserName = userName };
+            user = new User { Email = email, UserName = userName, PasswordSalt = DateTime.Now.ToString() };
 
             Guard.AgainstEmptyStringOrNull(password, "password");
             user.SetPassword(password);
