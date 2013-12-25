@@ -49,27 +49,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Exist, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Exist)
-            </div>
-        </div>
-
         <p id="_text" class="field-validation-error"></p>
 
         <div class="form-group">
@@ -86,7 +65,7 @@
             event.preventDefault();
             alert("Success");
             $.post("/membership/editprofile", $("#form").serialize(), function () {
-                $("#_text").attr("title").set("Changes saved.");
+                $("#_text").text("Changes saved.");
             });
         })
     </script>

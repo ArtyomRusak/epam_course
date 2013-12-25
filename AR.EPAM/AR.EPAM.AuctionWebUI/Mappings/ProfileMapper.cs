@@ -31,9 +31,7 @@ namespace AR.EPAM.AuctionWebUI.Mappings
                 Patronymic = entity.Patronymic,
                 PhoneNumber = entity.PhoneNumber,
                 Surname = entity.Surname,
-                UserName = entity.User.UserName,
-                Email = entity.User.Email,
-                Exist = true
+                UserName = entity.User.UserName
             };
 
             return viewModel;

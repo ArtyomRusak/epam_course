@@ -16,7 +16,7 @@ namespace AR.EPAM.Core.Entities.Membership
         public int Password { get; set; }
         public string PasswordSalt { get; set; }
         public string Email { get; set; }
-        public ICollection<Role> Roles { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<Lot> Lots { get; set; }
 
         public void SetPassword(string password)

@@ -8,7 +8,7 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Membership
         public RoleMap()
         {
             HasKey(e => e.Id);
-            Property(e => e.Name).IsRequired().HasMaxLength(30);
+            Property(e => e.Name).HasMaxLength(30).IsRequired();
         }
     }
 }

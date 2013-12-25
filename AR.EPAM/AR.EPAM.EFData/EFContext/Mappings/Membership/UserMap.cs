@@ -13,6 +13,7 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Membership
             Property(e => e.PasswordSalt).IsRequired();
             Property(e => e.Email).HasMaxLength(40).IsRequired();
             HasMany(e => e.Lots).WithRequired(e => e.Owner).HasForeignKey(e => e.OwnerId);
+            HasMany(e => e.Roles).WithMany(e => e.Users);
         }
     }
 }

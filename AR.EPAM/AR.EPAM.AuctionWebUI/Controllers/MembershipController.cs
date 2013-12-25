@@ -19,14 +19,34 @@ namespace AR.EPAM.AuctionWebUI.Controllers
     public class MembershipController : Controller
     {
         [HttpGet]
+        [AttributeRouting.Web.Mvc.Route("profile/{username}")]
+        public ActionResult ProfilePage(string username)
+        {
+            var context = new AuctionContext(Resources.ConnectionString);
+            var unitOfWork = new UnitOfWork(context);
+            var membershipService = new MembershipService(unitOfWork, unitOfWork);
+            var profileService = new ProfileService(unitOfWork, unitOfWork);
+
+            var user = membershipService.GetUserByUserName(username);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var profile = profileService.GetProfileByUserId(user.Id);
+            var mapper = new ProfileMapper();
+            var viewModel = mapper.MapEntityToViewModel(profile);
+            return View(viewModel);
+        }
+
+        [HttpGet]
         [AttributeRouting.Web.Mvc.Route("YourPage")]
-        public ActionResult UserPage(string email)
+        public ActionResult UserPage()
         {
             var context = new AuctionContext(Resources.ConnectionString);
             var unitOfWork = new UnitOfWork(context);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
 
-            var user = membershipService.GetUserByEmail(email);
+            var user = membershipService.GetUserByEmail(HttpContext.User.Identity.Name);
             var mapper = new UserMapper();
             var viewModel = mapper.MapEntityToViewModel(user);
 
@@ -35,17 +55,17 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        [ChildActionOnly]
-        public ActionResult EditProfileChild()
-        {
-            var context = new AuctionContext(Resources.ConnectionString);
-            var unitOfWork = new UnitOfWork(context);
-            var membershipService = new MembershipService(unitOfWork, unitOfWork);
-            var user = membershipService.GetUserByEmail(HttpContext.User.Identity.Name);
-            unitOfWork.Dispose();
-            return RedirectToAction("EditProfile", "Membership", new { username = user.UserName });
-        }
+        //[HttpGet]
+        //[ChildActionOnly]
+        //public ActionResult EditProfileChild()
+        //{
+        //    var context = new AuctionContext(Resources.ConnectionString);
+        //    var unitOfWork = new UnitOfWork(context);
+        //    var membershipService = new MembershipService(unitOfWork, unitOfWork);
+        //    var user = membershipService.GetUserByEmail(HttpContext.User.Identity.Name);
+        //    unitOfWork.Dispose();
+        //    return RedirectToAction("EditProfile", "Membership", new { username = user.UserName });
+        //}
 
         [HttpGet]
         [AttributeRouting.Web.Mvc.Route("{username}/profile")]
@@ -58,6 +78,11 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var user = membershipService.GetUserByUserName(username);
 
             if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (user.Email != HttpContext.User.Identity.Name)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -87,9 +112,10 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var unitOfWork = new UnitOfWork(context);
             var profileService = new ProfileService(unitOfWork, unitOfWork);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
-            var user = membershipService.GetUserByEmail(model.Email);
+            var user = membershipService.GetUserByEmail(HttpContext.User.Identity.Name);
+            var profile = profileService.GetProfileByUserId(user.Id);
 
-            if (!model.Exist)
+            if (profile == null)
             {
                 try
                 {
@@ -104,7 +130,6 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             }
             else
             {
-                var profile = profileService.GetProfileByUserId(user.Id);
                 var mapper = new ProfileMapper();
                 mapper.UpdateProfile(model, profile);
                 profileService.UpdateProfile(profile);

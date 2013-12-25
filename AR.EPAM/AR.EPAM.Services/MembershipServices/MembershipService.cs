@@ -106,12 +106,6 @@ namespace AR.EPAM.Services.MembershipServices
             UpdateUser(user);
         }
 
-        public void LogoutUser(int id)
-        {
-            var user = GetUserById(id);
-            UpdateUser(user);
-        }
-
         public User GetUserById(int id)
         {
             var userRepository = _factoryOfRepositories.GetUserRepository();

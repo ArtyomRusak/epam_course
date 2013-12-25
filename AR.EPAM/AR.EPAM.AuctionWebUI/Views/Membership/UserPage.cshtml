@@ -6,4 +6,4 @@
 
 <h1> @Model.UserName page </h1>
 
-@Html.ActionLink("Edit profile", "EditProfileChild", "Membership")
+@Html.ActionLink("Edit profile", "EditProfile", "Membership", new { username = @Model.UserName }, null)
