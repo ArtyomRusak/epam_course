@@ -17,7 +17,7 @@ namespace AR.EPAM.Services.MembershipServices
     {
         #region [Private members]
 
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
 
         #endregion
@@ -37,11 +37,11 @@ namespace AR.EPAM.Services.MembershipServices
         #endregion
 
 
-        public User RegisterUser(string email, string userName, string password, string roleName)
+        public User RegisterUser(string email, string userName, string password)
         {
             //email validation.
 
-            var role = GetRoleByName(roleName);
+            var role = GetRoleByName("Member");
             if (role == null)
             {
                 throw new MembershipServiceException("Role doesn't exist");
@@ -56,10 +56,12 @@ namespace AR.EPAM.Services.MembershipServices
 
             Guard.AgainstEmptyStringOrNull(password, "password");
             user.SetPassword(password);
-            user.Roles.Add(role);
 
             var userRepository = _factoryOfRepositories.GetUserRepository();
             userRepository.Create(user);
+
+            user.Roles.Add(role);
+
             try
             {
                 _unitOfWork.PreSave();
@@ -77,12 +79,17 @@ namespace AR.EPAM.Services.MembershipServices
             var user = GetUserByEmail(email);
             if (user == null)
             {
-                throw new MembershipServiceException("User doesn't exist.");
+                return null;
             }
 
-            user.IsLogged = true;
-            UpdateUser(user);
-            return user;
+            if (user.VerifyPassword(password))
+            {
+                return user;
+            }
+            else
+            {
+                throw new MembershipServiceException("Wrong password.");
+            }
         }
 
         public void ResetPassword(string email, string password, string newPassword)
@@ -101,12 +108,11 @@ namespace AR.EPAM.Services.MembershipServices
 
         public void LogoutUser(int id)
         {
-            var user = GetUser(id);
-            user.IsLogged = false;
+            var user = GetUserById(id);
             UpdateUser(user);
         }
 
-        public User GetUser(int id)
+        public User GetUserById(int id)
         {
             var userRepository = _factoryOfRepositories.GetUserRepository();
             try
@@ -120,15 +126,29 @@ namespace AR.EPAM.Services.MembershipServices
             }
         }
 
-        private User GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
-            Guard.AgainstEmptyStringOrNull(email, "email");
-
             var userRepository = _factoryOfRepositories.GetUserRepository();
             try
             {
-                var user = userRepository.Find(e => e.Email == email);
-                return user;
+                return userRepository.Find(e => e.Email == email);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new MembershipServiceException(ex.Message);
+            }
+            catch (RepositoryException ex)
+            {
+                throw new MembershipServiceException(ex.Message);
+            }
+        }
+
+        public User GetUserByUserName(string username)
+        {
+            var userRepository = _factoryOfRepositories.GetUserRepository();
+            try
+            {
+                return userRepository.Find(e => e.UserName == username);
             }
             catch (ArgumentException ex)
             {
@@ -142,9 +162,8 @@ namespace AR.EPAM.Services.MembershipServices
 
         public Role GetRoleByName(string roleName)
         {
-            Guard.AgainstEmptyStringOrNull(roleName, "roleName");
-
             var roleRepository = _factoryOfRepositories.GetRoleRepository();
+
             try
             {
                 return roleRepository.Find(e => e.Name == roleName);
@@ -162,6 +181,7 @@ namespace AR.EPAM.Services.MembershipServices
         public void UpdateUser(User user)
         {
             var userRepository = _factoryOfRepositories.GetUserRepository();
+
             try
             {
                 userRepository.Update(user);

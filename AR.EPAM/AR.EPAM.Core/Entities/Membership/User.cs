@@ -18,12 +18,16 @@ namespace AR.EPAM.Core.Entities.Membership
         public string Email { get; set; }
         public ICollection<Role> Roles { get; set; }
         public virtual ICollection<Lot> Lots { get; set; }
-        public bool IsLogged { get; set; }
 
         public void SetPassword(string password)
         {
-            var passwordHash = (password + this.PasswordSalt).GetHashCode();
+            var passwordHash = (password + PasswordSalt).GetHashCode();
             Password = passwordHash;
+        }
+
+        public bool VerifyPassword(string password)
+        {
+            return Password == (password + PasswordSalt).GetHashCode();
         }
     }
 }

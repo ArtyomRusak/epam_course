@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EFContext\AuctionContext.cs" />
+    <Compile Include="EFContext\Initializers\AuctionInitializer.cs" />
     <Compile Include="EFContext\Initializers\RecreateIfModelChanges.cs" />
     <Compile Include="EFContext\Mappings\Auction\BidMap.cs" />
     <Compile Include="EFContext\Mappings\Auction\CommentMap.cs" />

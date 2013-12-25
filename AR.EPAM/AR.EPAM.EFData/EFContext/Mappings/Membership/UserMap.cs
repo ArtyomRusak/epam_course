@@ -8,12 +8,10 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Membership
         public UserMap()
         {
             HasKey(e => e.Id);
-            Property(e => e.UserName).IsRequired().HasMaxLength(30);
+            Property(e => e.UserName).HasMaxLength(30).IsRequired();
             Property(e => e.Password).IsRequired();
             Property(e => e.PasswordSalt).IsRequired();
             Property(e => e.Email).HasMaxLength(40).IsRequired();
-            Property(e => e.IsLogged).IsRequired();
-            HasMany(e => e.Roles).WithMany(e => e.Users);
             HasMany(e => e.Lots).WithRequired(e => e.Owner).HasForeignKey(e => e.OwnerId);
         }
     }

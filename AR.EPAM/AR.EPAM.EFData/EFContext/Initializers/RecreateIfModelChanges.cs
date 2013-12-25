@@ -43,14 +43,12 @@ namespace AR.EPAM.EFData.EFContext.Initializers
 
         #endregion
 
-        #region [RecreateIfModelChanges's members]
-
-        protected void Seed(AuctionContext context)
+        public void Seed(AuctionContext context)
         {
             context.Roles.Add(new Role() {Name = "User"});
             context.Roles.Add(new Role() {Name = "Administrator"});
-        }
 
-        #endregion
+            context.SaveChanges();
+        }
     }
 }

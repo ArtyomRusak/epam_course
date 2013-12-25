@@ -14,7 +14,5 @@ namespace AR.EPAM.Core.Entities.Auction
         public int UserId { get; set; }
         public Lot Lot { get; set; }
         public long LotId { get; set; }
-        public Currency Currency { get; set; }
-        public int CurrencyId { get; set; }
     }
 }

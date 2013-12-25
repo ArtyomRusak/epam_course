@@ -40,6 +40,7 @@ namespace AR.EPAM.EFData
         {
             _context = context;
             _transaction = _context.Database.BeginTransaction();
+            _isTransactionActive = true;
         }
 
         #endregion

@@ -1,0 +1,9 @@
+﻿@model AR.EPAM.AuctionWebUI.Models.UserViewModel
+
+@{
+    ViewBag.Title = "UserPage";
+}
+
+<h1> @Model.UserName page </h1>
+
+@Html.ActionLink("Edit profile", "EditProfileChild", "Membership")

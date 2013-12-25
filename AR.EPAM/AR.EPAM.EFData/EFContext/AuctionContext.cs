@@ -22,7 +22,11 @@ namespace AR.EPAM.EFData.EFContext
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Bid> Bids { get; set; }
 
-        #region Overrides of DbContext
+        public AuctionContext(string connectionString)
+            : base(connectionString)
+        {
+
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,7 +41,5 @@ namespace AR.EPAM.EFData.EFContext
 
             base.OnModelCreating(modelBuilder);
         }
-
-        #endregion
     }
 }

@@ -17,7 +17,6 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Auction
             Property(e => e.Price).IsRequired();
             HasRequired(e => e.User).WithMany().HasForeignKey(e => e.UserId);
             HasRequired(e => e.Lot).WithMany().HasForeignKey(e => e.LotId);
-            HasRequired(e => e.Currency).WithMany().HasForeignKey(e => e.CurrencyId);
         }
     }
 }

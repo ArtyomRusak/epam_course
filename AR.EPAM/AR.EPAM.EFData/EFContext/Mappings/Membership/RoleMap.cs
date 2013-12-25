@@ -9,7 +9,6 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Membership
         {
             HasKey(e => e.Id);
             Property(e => e.Name).IsRequired().HasMaxLength(30);
-            HasMany(e => e.Users).WithMany(e => e.Roles);
         }
     }
 }
