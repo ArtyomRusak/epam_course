@@ -27,7 +27,7 @@ namespace AR.EPAM.EFData
         private IRepository<Comment, long> _commentRepository;
         private IRepository<Currency, int> _currencyRepository;
         private IRepository<Lot, long> _lotRepository;
-        private IRepository<Section, int> _sectionRepository;
+        private IRepository<Category, int> _sectionRepository;
         private bool _disposed;
         private bool _isTransactionActive;
 
@@ -83,9 +83,9 @@ namespace AR.EPAM.EFData
             return _lotRepository ?? (_lotRepository = new Repository<Lot, long>(_context));
         }
 
-        public IRepository<Section, int> GetSectionRepository()
+        public IRepository<Category, int> GetSectionRepository()
         {
-            return _sectionRepository ?? (_sectionRepository = new Repository<Section, int>(_context));
+            return _sectionRepository ?? (_sectionRepository = new Repository<Category, int>(_context));
         }
 
         #endregion

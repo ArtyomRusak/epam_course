@@ -118,6 +118,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Views\Membership\ProfilePage.cshtml" />
+    <Content Include="Views\Auction\CreateLot.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,15 +165,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappings\IMapper.cs" />
+    <Compile Include="Mappings\LotMapper.cs" />
     <Compile Include="Mappings\ProfileMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
+    <Compile Include="Models\CategoriesViewModel.cs" />
+    <Compile Include="Models\CreateLotViewModel.cs" />
     <Compile Include="Models\LoginUserViewModel.cs" />
+    <Compile Include="Models\LotViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\RegisterUserViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />

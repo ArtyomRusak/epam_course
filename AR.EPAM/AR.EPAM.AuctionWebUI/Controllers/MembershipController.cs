@@ -55,18 +55,6 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             return View(viewModel);
         }
 
-        //[HttpGet]
-        //[ChildActionOnly]
-        //public ActionResult EditProfileChild()
-        //{
-        //    var context = new AuctionContext(Resources.ConnectionString);
-        //    var unitOfWork = new UnitOfWork(context);
-        //    var membershipService = new MembershipService(unitOfWork, unitOfWork);
-        //    var user = membershipService.GetUserByEmail(HttpContext.User.Identity.Name);
-        //    unitOfWork.Dispose();
-        //    return RedirectToAction("EditProfile", "Membership", new { username = user.UserName });
-        //}
-
         [HttpGet]
         [AttributeRouting.Web.Mvc.Route("{username}/profile")]
         public ActionResult EditProfile(string username)

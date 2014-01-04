@@ -14,15 +14,8 @@ namespace AR.EPAM.Services.AuctionServices
 {
     public class CommentService : IService
     {
-        #region [Private members]
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
-
-        #endregion
-
-
-        #region [Ctor's]
 
         public CommentService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
@@ -32,11 +25,6 @@ namespace AR.EPAM.Services.AuctionServices
             _unitOfWork = unitOfWork;
             _factoryOfRepositories = factoryOfRepositories;
         }
-
-        #endregion
-
-
-        #region [CommentService's members]
 
         public Comment CreateComment(string description, int userId, int lotId)
         {
@@ -83,7 +71,5 @@ namespace AR.EPAM.Services.AuctionServices
                 throw new CommentServiceException(ex.Message);
             }
         }
-
-        #endregion
     }
 }

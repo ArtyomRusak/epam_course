@@ -19,6 +19,6 @@ namespace AR.EPAM.Core
         IRepository<Comment, long> GetCommentRepository();
         IRepository<Currency, int> GetCurrencyRepository();
         IRepository<Lot, long> GetLotRepository();
-        IRepository<Section, int> GetSectionRepository();
+        IRepository<Category, int> GetSectionRepository();
     }
 }

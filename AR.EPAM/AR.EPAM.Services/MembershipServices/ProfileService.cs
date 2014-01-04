@@ -13,15 +13,8 @@ namespace AR.EPAM.Services.MembershipServices
 {
     public class ProfileService : IService
     {
-        #region [Private members]
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
-
-        #endregion
-
-
-        #region [Ctor's]
 
         public ProfileService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
@@ -31,11 +24,6 @@ namespace AR.EPAM.Services.MembershipServices
             _unitOfWork = unitOfWork;
             _factoryOfRepositories = factoryOfRepositories;
         }
-
-        #endregion
-
-
-        #region [ProfileService's members]
 
         public Profile CreateProfile(string name, string surname, string patronymic, string city, string phoneNumber, int userId)
         {
@@ -97,7 +85,5 @@ namespace AR.EPAM.Services.MembershipServices
                 throw new ProfileServiceException(exception.Message);
             }
         }
-
-        #endregion
     }
 }

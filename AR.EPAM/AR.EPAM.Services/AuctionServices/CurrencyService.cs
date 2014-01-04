@@ -12,15 +12,8 @@ namespace AR.EPAM.Services.AuctionServices
 {
     public class CurrencyService : IService
     {
-        #region [Private members]
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
-
-        #endregion
-
-
-        #region [Ctor's]
 
         public CurrencyService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
@@ -30,10 +23,6 @@ namespace AR.EPAM.Services.AuctionServices
             _unitOfWork = unitOfWork;
             _factoryOfRepositories = factoryOfRepositories;
         }
-
-        #endregion
-
-        #region [CurrencyService's members]
 
         public Currency AddCurrency(string value)
         {
@@ -73,12 +62,33 @@ namespace AR.EPAM.Services.AuctionServices
             }
         }
 
+        public Currency GetCurrencyByValue(string value)
+        {
+            var currencyRepository = _factoryOfRepositories.GetCurrencyRepository();
+            try
+            {
+                return currencyRepository.Find(e => e.Value == value);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ServiceException(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new CurrencyServiceException(ex.Message);
+            }
+        }
+
         public void RemoveCurrency(Currency currency)
         {
             var currencyRepository = _factoryOfRepositories.GetCurrencyRepository();
             currencyRepository.Remove(currency);
         }
 
-        #endregion
+        public List<Currency> GetAllCurrencies()
+        {
+            var currencyRepository = _factoryOfRepositories.GetCurrencyRepository();
+            return currencyRepository.All().ToList();
+        } 
     }
 }

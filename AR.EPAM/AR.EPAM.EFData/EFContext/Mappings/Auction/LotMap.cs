@@ -17,10 +17,10 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Auction
             Property(e => e.StartPrice).IsRequired();
             Property(e => e.CurrentPrice).IsRequired();
             Property(e => e.CreateDate).IsRequired();
-            Property(e => e.Duration).IsRequired();
+            Property(e => e.DurationInDays).IsRequired();
             HasRequired(e => e.Currency).WithMany().HasForeignKey(e => e.CurrencyId);
             HasRequired(e => e.Owner).WithMany(e => e.Lots).HasForeignKey(e => e.OwnerId).WillCascadeOnDelete(false);
-            HasRequired(e => e.Section).WithMany(e => e.Lots).HasForeignKey(e => e.SectionId);
+            HasRequired(e => e.Category).WithMany(e => e.Lots).HasForeignKey(e => e.SectionId);
             HasMany(e => e.Bids).WithRequired(e => e.Lot).HasForeignKey(e => e.LotId);
         }
     }

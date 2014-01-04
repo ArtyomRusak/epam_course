@@ -13,7 +13,7 @@ namespace AR.EPAM.Core.Entities.Membership
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int UserId { get; set; }
     }
 }

@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace AR.EPAM.Services.Exceptions
 {
-    public class SectionServiceException : ServiceException
+    public class CategoryServiceException : ServiceException
     {
-        protected SectionServiceException()
+        protected CategoryServiceException()
         {
 
         }
 
-        public SectionServiceException(string message)
+        public CategoryServiceException(string message)
             : base(message)
         {
 
         }
 
-        public SectionServiceException(Exception exception)
+        public CategoryServiceException(Exception exception)
             : base(exception)
         {
 

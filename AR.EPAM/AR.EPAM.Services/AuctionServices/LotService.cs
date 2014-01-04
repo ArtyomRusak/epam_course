@@ -15,15 +15,8 @@ namespace AR.EPAM.Services.AuctionServices
 {
     public class LotService : IService
     {
-        #region [Private members]
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
-
-        #endregion
-
-
-        #region [Ctor's]
 
         public LotService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
@@ -34,24 +27,20 @@ namespace AR.EPAM.Services.AuctionServices
             _factoryOfRepositories = factoryOfRepositories;
         }
 
-        #endregion
-
-
-        #region [LotService's members]
-
-        public Lot CreateLot(string name, double startPrice, double currentPrice, TimeSpan duration, int currencyId,
-            int ownerId, int sectionId)
+        public Lot CreateLot(string name, double startPrice, int duration, string description, int currencyId,
+            int ownerId, int categoryId)
         {
             var lot = new Lot
             {
                 Name = name,
                 StartPrice = startPrice,
-                CurrentPrice = currentPrice,
+                CurrentPrice = startPrice,
                 CreateDate = DateTime.Now,
-                Duration = duration,
+                Description = description,
+                DurationInDays = duration,
                 CurrencyId = currencyId,
                 OwnerId = ownerId,
-                SectionId = sectionId
+                SectionId = categoryId
             };
 
             var lotRepository = _factoryOfRepositories.GetLotRepository();
@@ -138,9 +127,6 @@ namespace AR.EPAM.Services.AuctionServices
             {
                 throw new LotServiceException(exception.Message);
             }
-        } 
-
-        #endregion
-
+        }
     }
 }

@@ -8,13 +8,13 @@ using AR.EPAM.Core.Entities.Auction;
 
 namespace AR.EPAM.EFData.EFContext.Mappings.Auction
 {
-    public class SectionMap : EntityTypeConfiguration<Section>
+    public class CategoryMap : EntityTypeConfiguration<Category>
     {
-        public SectionMap()
+        public CategoryMap()
         {
             HasKey(e => e.Id);
             Property(e => e.Name).HasMaxLength(50).IsRequired();
-            HasMany(e => e.Lots).WithRequired(e => e.Section).HasForeignKey(e => e.SectionId);
+            HasMany(e => e.Lots).WithRequired(e => e.Category).HasForeignKey(e => e.SectionId);
         }
     }
 }

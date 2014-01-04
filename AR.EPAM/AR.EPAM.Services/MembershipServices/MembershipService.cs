@@ -15,15 +15,8 @@ namespace AR.EPAM.Services.MembershipServices
 {
     public class MembershipService : IService
     {
-        #region [Private members]
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
-
-        #endregion
-
-
-        #region [Ctor's]
 
         public MembershipService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
@@ -33,9 +26,6 @@ namespace AR.EPAM.Services.MembershipServices
             _unitOfWork = unitOfWork;
             _factoryOfRepositories = factoryOfRepositories;
         }
-
-        #endregion
-
 
         public User RegisterUser(string email, string userName, string password)
         {

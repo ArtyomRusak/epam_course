@@ -13,15 +13,8 @@ namespace AR.EPAM.Services.AuctionServices
 {
     public class BidService : IService
     {
-        #region [Private members]
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepositoryFactory _factoryOfRepositories;
-
-        #endregion
-
-
-        #region [Ctor's]
 
         public BidService(IUnitOfWork unitOfWork, IRepositoryFactory factoryOfRepositories)
         {
@@ -31,11 +24,6 @@ namespace AR.EPAM.Services.AuctionServices
             _unitOfWork = unitOfWork;
             _factoryOfRepositories = factoryOfRepositories;
         }
-
-        #endregion
-
-
-        #region [BidService's members]
 
         public Bid CreateBid(double price, int userId, long lotId, int currencyId)
         {
@@ -97,7 +85,5 @@ namespace AR.EPAM.Services.AuctionServices
                 throw new BidServiceException(e.Message);
             }
         }
-
-        #endregion
     }
 }

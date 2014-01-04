@@ -16,7 +16,7 @@ namespace AR.EPAM.EFData.EFContext
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Lot> Lots { get; set; }
-        public DbSet<Section> Sections { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Profile> Profiles { get; set; }
@@ -33,7 +33,7 @@ namespace AR.EPAM.EFData.EFContext
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new LotMap());
-            modelBuilder.Configurations.Add(new SectionMap());
+            modelBuilder.Configurations.Add(new CategoryMap());
             modelBuilder.Configurations.Add(new CurrencyMap());
             modelBuilder.Configurations.Add(new CommentMap());
             modelBuilder.Configurations.Add(new ProfileMap());
