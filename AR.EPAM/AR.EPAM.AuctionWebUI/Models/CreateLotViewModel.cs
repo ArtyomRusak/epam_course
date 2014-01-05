@@ -12,7 +12,7 @@ namespace AR.EPAM.AuctionWebUI.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        [Range(0, Double.MaxValue)]
+        [Range(0.01, Double.MaxValue)]
         public double StartPrice { get; set; }
         [Required]
         public string Description { get; set; }

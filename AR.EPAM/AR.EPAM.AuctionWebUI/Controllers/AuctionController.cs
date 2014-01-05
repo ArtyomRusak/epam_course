@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.EFData;
@@ -101,6 +102,27 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             {
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        [AttributeRouting.Web.Mvc.Route("lots/{id}")]
+        public ActionResult ViewLot(int id)
+        {
+            var context = new AuctionContext(Resources.ConnectionString);
+            var unitOfWork = new UnitOfWork(context);
+            var lotService = new LotService(unitOfWork, unitOfWork);
+            var lot = lotService.GetLotById(id);
+
+            var mapper = new LotMapper();
+            var viewModel = mapper.MapEntityToViewModel(lot);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult ViewLot(double BidValue, string bidEmail)
+        {
+            return View();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using AR.EPAM.Core.Entities.Auction;
@@ -9,6 +10,7 @@ namespace AR.EPAM.AuctionWebUI.Models
 {
     public class LotViewModel : ViewModel
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public double StartPrice { get; set; }
         public double CurrentPrice { get; set; }
@@ -19,5 +21,7 @@ namespace AR.EPAM.AuctionWebUI.Models
         public User Owner { get; set; }
         public virtual Category Category { get; set; }
         public ICollection<Bid> Bids { get; set; }
+        [Range(0.01, Double.MaxValue)]
+        public double BidValue { get; set; }
     }
 }

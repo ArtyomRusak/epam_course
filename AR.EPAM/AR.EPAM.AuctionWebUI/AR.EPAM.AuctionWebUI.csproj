@@ -119,6 +119,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Membership\ProfilePage.cshtml" />
     <Content Include="Views\Auction\CreateLot.cshtml" />
+    <Content Include="Views\Auction\ViewLot.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

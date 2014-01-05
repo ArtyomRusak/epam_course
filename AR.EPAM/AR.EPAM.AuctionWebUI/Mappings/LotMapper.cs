@@ -22,7 +22,8 @@ namespace AR.EPAM.AuctionWebUI.Mappings
                 DurationInDays = entity.DurationInDays,
                 Name = entity.Name,
                 Owner = entity.Owner,
-                StartPrice = entity.StartPrice
+                StartPrice = entity.StartPrice,
+                Id = entity.Id
             };
 
             return viewModel;

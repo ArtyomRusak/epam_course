@@ -58,7 +58,6 @@
         $("#form").on("submit", function (event) {
             event.preventDefault();
             if ($("#form").validate().form()) {
-                alert("Success");
                 $.post("/register", $("#form").serialize(), function () {
                     window.location.href = '@Url.Action("Login")';
                 });

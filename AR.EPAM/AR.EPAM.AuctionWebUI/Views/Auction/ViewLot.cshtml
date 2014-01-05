@@ -1,0 +1,109 @@
+﻿@model AR.EPAM.AuctionWebUI.Models.LotViewModel
+
+@{
+    ViewBag.Title = "ViewLot";
+}
+
+<h2>ViewLot</h2>
+
+<div>
+    <h4>LotViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <h1>
+            @String.Format("Owner of the lot - {0}", @Model.Owner.UserName)
+        </h1>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <dt>
+            Name of the lot
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Start price for lot
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartPrice)
+            @Html.DisplayFor(model => model.Currency.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CurrentPrice)
+            @Html.DisplayFor(model => model.Currency.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DurationInDays)
+        </dt>
+
+        <dd>
+            @String.Format("Duration of the lot(in days) : {0}", Model.DurationInDays)
+            <p></p>
+            @String.Format("Hours to end : {0}", (int)(Model.CreateDate.AddDays(Model.DurationInDays) - DateTime.Now).TotalHours)
+        </dd>
+
+        <dt>
+            Count of bids
+        </dt>
+        <dd>
+            @Model.Bids.Count
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm("ViewLot", "Auction", FormMethod.Post, new { id = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <input id="bidEmail" name="bidEmail" type="hidden" value="@HttpContext.Current.User.Identity.Name" />
+
+        @*<input id="bidValue" type="text" value="@Model.CurrentPrice" />*@
+        @Html.EditorFor(model => model.BidValue)
+        @Html.ValidationMessageFor(model => model.BidValue)
+
+        <p id="text"></p>
+
+        <input type="submit" value="Take a bid" class="btn btn-default" />
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#form").on("submit", function (event) {
+            //event.preventDefault();
+            var value = parseFloat(@Model.CurrentPrice);
+            if ($("#form").validate().form()) {
+                if ($("#BidValue").val() > value) {
+                    
+                } else {
+                    event.preventDefault();
+                    alert("Bad bid, bro!");
+                }
+            }
+        });
+    </script>
+}
