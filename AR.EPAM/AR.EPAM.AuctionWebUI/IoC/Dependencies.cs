@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AR.EPAM.Core;
+using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
-using Autofac;
+using AR.EPAM.Services;
 using Ninject;
 using Ninject.Web.Common;
 
@@ -11,23 +13,18 @@ namespace AR.EPAM.AuctionWebUI.IoC
 {
     public static class Dependencies
     {
-        public static IContainer Configure()
-        {
-            var builder = new ContainerBuilder();
-
-            builder.Register(x => new AuctionContext(Resources.ConnectionString)).InstancePerLifetimeScope();
-
-            return builder.Build();
-        }
-
         public static IKernel ConfigureNinject()
         {
             var kernel = new StandardKernel();
 
             kernel.Bind<AuctionContext>()
                 .ToSelf()
-                .InRequestScope()
                 .WithConstructorArgument("connectionString", Resources.ConnectionString);
+
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
+            kernel.Bind<IRepositoryFactory>().To<UnitOfWork>();
+
+            kernel.Bind<IService>().To(typeof(IService));
 
             return kernel;
         }
