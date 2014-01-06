@@ -83,10 +83,13 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                         return View(model);
                     }
 
+                    var roles = loginUser.Roles.Select(e => e.Name).ToList();
+                    string rolesToString = roles.Aggregate("", (current, role) => current + String.Format("{0},", role));
+
                     unitOfWork.Dispose();
 
                     var ticket = new FormsAuthenticationTicket(3, loginUser.Email, DateTime.Now,
-                        DateTime.Now.AddMinutes(20), model.RememberMe, "");
+                        DateTime.Now.AddMinutes(20), model.RememberMe, rolesToString);
                     var cookieString = FormsAuthentication.Encrypt(ticket);
                     var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookieString);
                     if (ticket.IsPersistent)
@@ -125,5 +128,5 @@ namespace AR.EPAM.AuctionWebUI.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-	}
+    }
 }

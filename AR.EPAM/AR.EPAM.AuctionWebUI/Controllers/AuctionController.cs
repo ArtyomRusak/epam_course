@@ -112,7 +112,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [AttributeRouting.Web.Mvc.Route("lots/{id}")]
         public ActionResult ViewLot(int id)
         {
-            var context = ContextFactory.GetContextKernel();
+            var context = Factory.GetContextKernel();
             var unitOfWork = new UnitOfWork(context);
             var lotService = new LotService(unitOfWork, unitOfWork);
             var lot = lotService.GetLotById(id);
@@ -128,7 +128,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [HttpPost]
         public ActionResult ViewLot(double BidValue, string bidEmail, long lotId)
         {
-            var context = ContextFactory.GetContextKernel();
+            var context = Factory.GetContextKernel();
             var unitOfWork = new UnitOfWork(context);
             try
             {

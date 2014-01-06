@@ -23,7 +23,7 @@ namespace AR.EPAM.AuctionWebUI
         {
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            ContextFactory.Configure();
+            Factory.Configure();
 
             RouteTable.Routes.MapRoute("Default", "{controller}/{action}", new { controller = "Home", action = "Index" });
         }
@@ -44,14 +44,9 @@ namespace AR.EPAM.AuctionWebUI
             {
                 if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    var i = HttpContext.Current.User.Identity;
-                    var context = new AuctionContext(Resources.ConnectionString);
-                    var unitOfWork = new UnitOfWork(context);
-                    var membershipService = new MembershipService(unitOfWork, unitOfWork);
-                    var user = membershipService.GetUserByEmail(i.Name);
-                    var roles = user.Roles.Select(w => w.Name).ToArray();
+                    var i = HttpContext.Current.User.Identity as FormsIdentity;
+                    var roles = i.Ticket.UserData.Split(',').Where(w => w != "").ToArray();
                     HttpContext.Current.User = new GenericPrincipal(i, roles);
-                    unitOfWork.Dispose();
                 }
             }
         }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AR.EPAM.Core;
+using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.EFData.EFContext;
 using AR.EPAM.Services;
+using AR.EPAM.Services.MembershipServices;
 using Ninject;
 
 namespace AR.EPAM.AuctionWebUI.IoC
 {
-    public static class ContextFactory
+    public static class Factory
     {
         public static IKernel DependencyContainer { get; private set; }
 
@@ -28,9 +30,14 @@ namespace AR.EPAM.AuctionWebUI.IoC
             return DependencyContainer.Get<IUnitOfWork>();
         }
 
-        public static IService GetService<TService>() where TService : IService
+        public static MembershipService GetMembershipService()
         {
-            return DependencyContainer.Get<TService>();
+            return DependencyContainer.Get<MembershipService>();
+        }
+
+        public static ProfileService GetProfileService()
+        {
+            return DependencyContainer.Get<ProfileService>();
         }
     }
 }

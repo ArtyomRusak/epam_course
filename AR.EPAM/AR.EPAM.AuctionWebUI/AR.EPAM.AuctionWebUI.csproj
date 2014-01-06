@@ -189,7 +189,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IoC\ContextFactory.cs" />
+    <Compile Include="IoC\Factory.cs" />
     <Compile Include="IoC\Dependencies.cs" />
     <Compile Include="Mappings\IMapper.cs" />
     <Compile Include="Mappings\LotMapper.cs" />
