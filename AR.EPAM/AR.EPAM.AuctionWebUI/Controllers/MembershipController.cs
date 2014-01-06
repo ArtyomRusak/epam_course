@@ -33,6 +33,15 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var profile = profileService.GetProfileByUserId(user.Id);
+
+            if (profile == null)
+            {
+                unitOfWork.Dispose();
+                return RedirectToAction("NoProfile", "Helper");
+            }
+
+            unitOfWork.Dispose();
+
             var mapper = new ProfileMapper();
             var viewModel = mapper.MapEntityToViewModel(profile);
             return View(viewModel);

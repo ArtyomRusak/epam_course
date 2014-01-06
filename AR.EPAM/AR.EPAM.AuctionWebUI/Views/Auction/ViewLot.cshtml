@@ -71,6 +71,17 @@
         <dd>
             @Model.Bids.Count
         </dd>
+
+        @{
+            if (Model.Bids.Count != 0)
+            {
+                <dd>
+                    Last bid was made by @Html.ActionLink(Model.Bids.OrderBy(e => e.Price).FirstOrDefault().User.UserName, 
+                    "ProfilePage", "Membership", new { username = Model.Bids.OrderBy(e => e.Price).FirstOrDefault().User.UserName }, null)
+                </dd>
+            }
+        }
+
     </dl>
 
     @using (Html.BeginForm("ViewLot", "Auction", FormMethod.Post, new { id = "form" }))
@@ -79,6 +90,7 @@
         @Html.ValidationSummary(true)
 
         <input id="bidEmail" name="bidEmail" type="hidden" value="@HttpContext.Current.User.Identity.Name" />
+        <input id="lotId" name="lotId" type="hidden" value="@Model.Id"/>
 
         @*<input id="bidValue" type="text" value="@Model.CurrentPrice" />*@
         @Html.EditorFor(model => model.BidValue)
@@ -98,7 +110,7 @@
             var value = parseFloat(@Model.CurrentPrice);
             if ($("#form").validate().form()) {
                 if ($("#BidValue").val() > value) {
-                    
+
                 } else {
                     event.preventDefault();
                     alert("Bad bid, bro!");

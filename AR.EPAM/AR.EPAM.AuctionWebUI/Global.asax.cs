@@ -9,6 +9,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using AR.EPAM.AuctionWebUI.App_Start;
+using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
 using AR.EPAM.Services.MembershipServices;
@@ -22,6 +23,7 @@ namespace AR.EPAM.AuctionWebUI
         {
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            ContextFactory.Configure();
 
             RouteTable.Routes.MapRoute("Default", "{controller}/{action}", new { controller = "Home", action = "Index" });
         }
@@ -42,17 +44,14 @@ namespace AR.EPAM.AuctionWebUI
             {
                 if (HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    if (HttpContext.Current.User.Identity is FormsIdentity)
-                    {
-                        var i = HttpContext.Current.User.Identity;
-                        var context = new AuctionContext(Resources.ConnectionString);
-                        var unitOfWork = new UnitOfWork(context);
-                        var membershipService = new MembershipService(unitOfWork, unitOfWork);
-                        var user = membershipService.GetUserByEmail(i.Name);
-                        var roles = user.Roles.Select(w => w.Name).ToArray();
-                        HttpContext.Current.User = new GenericPrincipal(i, roles);
-                        unitOfWork.Dispose();
-                    }
+                    var i = HttpContext.Current.User.Identity;
+                    var context = new AuctionContext(Resources.ConnectionString);
+                    var unitOfWork = new UnitOfWork(context);
+                    var membershipService = new MembershipService(unitOfWork, unitOfWork);
+                    var user = membershipService.GetUserByEmail(i.Name);
+                    var roles = user.Roles.Select(w => w.Name).ToArray();
+                    HttpContext.Current.User = new GenericPrincipal(i, roles);
+                    unitOfWork.Dispose();
                 }
             }
         }

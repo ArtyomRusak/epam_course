@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
 using AR.EPAM.Services.AuctionServices;
+using AR.EPAM.Services.Exceptions;
 using AR.EPAM.Services.MembershipServices;
 using AttributeRouting.Web.Mvc;
 
@@ -108,7 +112,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [AttributeRouting.Web.Mvc.Route("lots/{id}")]
         public ActionResult ViewLot(int id)
         {
-            var context = new AuctionContext(Resources.ConnectionString);
+            var context = ContextFactory.GetContextKernel();
             var unitOfWork = new UnitOfWork(context);
             var lotService = new LotService(unitOfWork, unitOfWork);
             var lot = lotService.GetLotById(id);
@@ -116,13 +120,40 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var mapper = new LotMapper();
             var viewModel = mapper.MapEntityToViewModel(lot);
 
+            unitOfWork.Commit();
+
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult ViewLot(double BidValue, string bidEmail)
+        public ActionResult ViewLot(double BidValue, string bidEmail, long lotId)
         {
-            return View();
+            var context = ContextFactory.GetContextKernel();
+            var unitOfWork = new UnitOfWork(context);
+            try
+            {
+                var membershipService = new MembershipService(unitOfWork, unitOfWork);
+                var lotService = new LotService(unitOfWork, unitOfWork);
+                var bidService = new BidService(unitOfWork, unitOfWork);
+
+                var user = membershipService.GetUserByEmail(bidEmail);
+                var lot = lotService.GetLotById(lotId);
+                bidService.CreateBid(BidValue, user.Id, lotId, lot.Currency.Id);
+                lot.CurrentPrice = BidValue;
+                lotService.UpdateLot(lot);
+
+                unitOfWork.Commit();
+
+                return RedirectToAction("ViewLot", new { id = lotId });
+            }
+            catch (MembershipServiceException e)
+            {
+                return RedirectToAction("ViewLot", new { id = lotId });
+            }
+            catch (BidServiceException e)
+            {
+                return RedirectToAction("ViewLot", new { id = lotId });
+            }
         }
     }
 }

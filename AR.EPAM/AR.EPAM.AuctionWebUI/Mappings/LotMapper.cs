@@ -13,7 +13,7 @@ namespace AR.EPAM.AuctionWebUI.Mappings
         {
             var viewModel = new LotViewModel
             {
-                Bids = entity.Bids,
+                Bids = new HashSet<Bid>(entity.Bids),
                 Category = entity.Category,
                 CreateDate = entity.CreateDate,
                 Description = entity.Description,
