@@ -7,12 +7,12 @@
 <h2>ViewLot</h2>
 
 <div>
-    <h4>LotViewModel</h4>
+    <h1>
+        Owner of the lot @Html.ActionLink(@Model.Name, "ProfilePage", "Membership", new { username = @Model.Owner.UserName }, null)
+    </h1>
     <hr />
     <dl class="dl-horizontal">
-        <h1>
-            @String.Format("Owner of the lot - {0}", @Model.Owner.UserName)
-        </h1>
+
 
         @Html.HiddenFor(model => model.Id)
 
@@ -76,8 +76,8 @@
             if (Model.Bids.Count != 0)
             {
                 <dd>
-                    Last bid was made by @Html.ActionLink(Model.Bids.OrderBy(e => e.Price).FirstOrDefault().User.UserName, 
-                    "ProfilePage", "Membership", new { username = Model.Bids.OrderBy(e => e.Price).FirstOrDefault().User.UserName }, null)
+                    Last bid was made by @Html.ActionLink(Model.Bids.OrderBy(e => e.Price).FirstOrDefault().User.UserName,
+                                             "ProfilePage", "Membership", new { username = Model.Bids.OrderBy(e => e.Price).FirstOrDefault().User.UserName }, null)
                 </dd>
             }
         }
@@ -90,7 +90,7 @@
         @Html.ValidationSummary(true)
 
         <input id="bidEmail" name="bidEmail" type="hidden" value="@HttpContext.Current.User.Identity.Name" />
-        <input id="lotId" name="lotId" type="hidden" value="@Model.Id"/>
+        <input id="lotId" name="lotId" type="hidden" value="@Model.Id" />
 
         @*<input id="bidValue" type="text" value="@Model.CurrentPrice" />*@
         @Html.EditorFor(model => model.BidValue)
@@ -101,6 +101,13 @@
         <input type="submit" value="Take a bid" class="btn btn-default" />
     }
 </div>
+
+
+
+<div id="commentDiv">
+    @Html.Partial("_CommentPartial", Model.CommentViewModel)
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -115,6 +122,16 @@
                     event.preventDefault();
                     alert("Bad bid, bro!");
                 }
+            }
+        });
+
+        $("#commentForm").on("submit", function (event) {
+            event.preventDefault();
+            if ($("#commentForm").validate().form()) {
+                $.post("/auction/getcommentpartial", $("#commentForm").serialize(), function (data) {
+                    $("#commentDiv").html(data);
+                    $("#Description").val("");
+                });
             }
         });
     </script>

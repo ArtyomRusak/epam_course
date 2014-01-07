@@ -132,6 +132,7 @@
     <Content Include="Views\Auction\CreateLot.cshtml" />
     <Content Include="Views\Auction\ViewLot.cshtml" />
     <Content Include="Views\Helper\NoProfile.cshtml" />
+    <Content Include="Views\Shared\_CommentPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -190,12 +191,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\Factory.cs" />
-    <Compile Include="IoC\Dependencies.cs" />
     <Compile Include="Mappings\IMapper.cs" />
     <Compile Include="Mappings\LotMapper.cs" />
     <Compile Include="Mappings\ProfileMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
     <Compile Include="Models\CategoriesViewModel.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CreateLotViewModel.cs" />
     <Compile Include="Models\LoginUserViewModel.cs" />
     <Compile Include="Models\LotViewModel.cs" />

@@ -27,7 +27,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         {
             try
             {
-                var context = new AuctionContext(Resources.ConnectionString);
+                var context = Factory.GetContext();
                 var unitOfWork = new UnitOfWork(context);
                 var categoryService = new CategoryService(unitOfWork, unitOfWork);
 
@@ -35,12 +35,12 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                 if (category != null)
                 {
                     var categories = categoryService.GetSubCategories(category.Id);
-                    unitOfWork.Dispose();
+                    unitOfWork.Commit();
                     return Json(categories.Select(e => e.Name).ToList());
                 }
                 else
                 {
-                    unitOfWork.Dispose();
+                    unitOfWork.Rollback();
                     return null;
                 }
             }
@@ -53,7 +53,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [HttpGet]
         public ActionResult CreateLot()
         {
-            var context = new AuctionContext(Resources.ConnectionString);
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var currencyService = new CurrencyService(unitOfWork, unitOfWork);
             var categoryService = new CategoryService(unitOfWork, unitOfWork);
@@ -67,7 +67,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                 Categories = new HashSet<Category>(categories)
             };
 
-            unitOfWork.Dispose();
+            unitOfWork.Commit();
 
             return View(model);
         }
@@ -79,7 +79,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             {
                 try
                 {
-                    var context = new AuctionContext(Resources.ConnectionString);
+                    var context = Factory.GetContext();
                     var unitOfWork = new UnitOfWork(context);
                     var lotService = new LotService(unitOfWork, unitOfWork);
                     var categoryService = new CategoryService(unitOfWork, unitOfWork);
@@ -92,7 +92,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                     var lot = lotService.CreateLot(model.Name, model.StartPrice, model.DurationInDays, model.Description,
                         currency.Id, owner.Id, category.Id);
 
-                    unitOfWork.Dispose();
+                    unitOfWork.Commit();
 
                     return RedirectToAction("UserPage", "Membership");
                 }
@@ -112,7 +112,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [AttributeRouting.Web.Mvc.Route("lots/{id}")]
         public ActionResult ViewLot(int id)
         {
-            var context = Factory.GetContextKernel();
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var lotService = new LotService(unitOfWork, unitOfWork);
             var lot = lotService.GetLotById(id);
@@ -128,7 +128,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [HttpPost]
         public ActionResult ViewLot(double BidValue, string bidEmail, long lotId)
         {
-            var context = Factory.GetContextKernel();
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             try
             {
@@ -153,6 +153,32 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             catch (BidServiceException e)
             {
                 return RedirectToAction("ViewLot", new { id = lotId });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetCommentPartial(CommentViewModel model)
+        {
+            var context = Factory.GetContext();
+            var unitOfWork = new UnitOfWork(context);
+            try
+            {
+                var commentService = new CommentService(unitOfWork, unitOfWork);
+                var membershipService = new MembershipService(unitOfWork, unitOfWork);
+
+                var user = membershipService.GetUserByEmail(model.UserMail);
+                commentService.CreateComment(model.Description, user.Id, model.LotId);
+                var comments = commentService.GetCommentsByLotId(model.LotId);
+                unitOfWork.Commit();
+
+                var viewModel = new CommentViewModel { Comments = new HashSet<Comment>(comments), LotId = model.LotId };
+
+                return PartialView("_CommentPartial", viewModel);
+            }
+            catch (Exception)
+            {
+                unitOfWork.Rollback();
+                throw;
             }
         }
     }

@@ -23,5 +23,6 @@ namespace AR.EPAM.AuctionWebUI.Models
         public ICollection<Bid> Bids { get; set; }
         [Range(0.01, Double.MaxValue)]
         public double BidValue { get; set; }
+        public CommentViewModel CommentViewModel { get; set; }
     }
 }

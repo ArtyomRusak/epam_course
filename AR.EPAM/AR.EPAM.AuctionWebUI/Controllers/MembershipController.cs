@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.EFData;
@@ -22,7 +23,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [AttributeRouting.Web.Mvc.Route("profile/{username}")]
         public ActionResult ProfilePage(string username)
         {
-            var context = new AuctionContext(Resources.ConnectionString);
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
             var profileService = new ProfileService(unitOfWork, unitOfWork);
@@ -30,17 +31,18 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var user = membershipService.GetUserByUserName(username);
             if (user == null)
             {
+                unitOfWork.Commit();
                 return RedirectToAction("Index", "Home");
             }
             var profile = profileService.GetProfileByUserId(user.Id);
 
             if (profile == null)
             {
-                unitOfWork.Dispose();
+                unitOfWork.Commit();
                 return RedirectToAction("NoProfile", "Helper");
             }
 
-            unitOfWork.Dispose();
+            unitOfWork.Commit();
 
             var mapper = new ProfileMapper();
             var viewModel = mapper.MapEntityToViewModel(profile);
@@ -51,7 +53,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [AttributeRouting.Web.Mvc.Route("YourPage")]
         public ActionResult UserPage()
         {
-            var context = new AuctionContext(Resources.ConnectionString);
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
 
@@ -59,7 +61,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var mapper = new UserMapper();
             var viewModel = mapper.MapEntityToViewModel(user);
 
-            unitOfWork.Dispose();
+            unitOfWork.Commit();
 
             return View(viewModel);
         }
@@ -68,7 +70,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [AttributeRouting.Web.Mvc.Route("{username}/profile")]
         public ActionResult EditProfile(string username)
         {
-            var context = new AuctionContext(Resources.ConnectionString);
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
 
@@ -76,11 +78,13 @@ namespace AR.EPAM.AuctionWebUI.Controllers
 
             if (user == null)
             {
+                unitOfWork.Commit();
                 return RedirectToAction("Index", "Home");
             }
 
             if (user.Email != HttpContext.User.Identity.Name)
             {
+                unitOfWork.Commit();
                 return RedirectToAction("Index", "Home");
             }
 
@@ -88,10 +92,11 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var profileService = new ProfileService(unitOfWork, unitOfWork);
             var profile = profileService.GetProfileByUserId(user.Id);
 
-            unitOfWork.Dispose();
+            unitOfWork.Commit();
 
             if (profile == null)
             {
+                unitOfWork.Commit();
                 var profileViewModel = new ProfileViewModel();
                 return View(profileViewModel);
             }
@@ -105,7 +110,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [HttpPost]
         public ActionResult EditProfile(ProfileViewModel model)
         {
-            var context = new AuctionContext(Resources.ConnectionString);
+            var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var profileService = new ProfileService(unitOfWork, unitOfWork);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
@@ -116,21 +121,29 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             {
                 try
                 {
-                    profileService.CreateProfile(model.Name, model.Surname, model.Patronymic, model.City, model.PhoneNumber,
+                    profileService.CreateProfile(model.Name, model.Surname, model.Patronymic, model.City,
+                        model.PhoneNumber,
                         user.Id);
+                    unitOfWork.Commit();
+                }
+                catch (ProfileServiceException ex)
+                {
+                    unitOfWork.Rollback();
+                    throw;
                 }
                 catch (ServiceException e)
                 {
+                    unitOfWork.Rollback();
                     throw;
                 }
-                unitOfWork.Dispose();
+
             }
             else
             {
                 var mapper = new ProfileMapper();
                 mapper.UpdateProfile(model, profile);
                 profileService.UpdateProfile(profile);
-                unitOfWork.Dispose();
+                unitOfWork.Commit();
             }
 
             //cause using ajax

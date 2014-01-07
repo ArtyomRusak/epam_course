@@ -22,6 +22,7 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Auction
             HasRequired(e => e.Owner).WithMany(e => e.Lots).HasForeignKey(e => e.OwnerId).WillCascadeOnDelete(false);
             HasRequired(e => e.Category).WithMany(e => e.Lots).HasForeignKey(e => e.SectionId);
             HasMany(e => e.Bids).WithRequired(e => e.Lot).HasForeignKey(e => e.LotId);
+            HasMany(e => e.Comments).WithRequired(e => e.Lot).HasForeignKey(e => e.LotId);
         }
     }
 }

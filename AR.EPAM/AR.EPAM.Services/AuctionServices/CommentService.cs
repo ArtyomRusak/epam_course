@@ -26,7 +26,7 @@ namespace AR.EPAM.Services.AuctionServices
             _factoryOfRepositories = factoryOfRepositories;
         }
 
-        public Comment CreateComment(string description, int userId, int lotId)
+        public Comment CreateComment(string description, int userId, long lotId)
         {
             var comment = new Comment
             {
@@ -69,6 +69,19 @@ namespace AR.EPAM.Services.AuctionServices
             catch (RepositoryException ex)
             {
                 throw new CommentServiceException(ex.Message);
+            }
+        }
+
+        public List<Comment> GetCommentsByLotId(long lotId)
+        {
+            var commentRepository = _factoryOfRepositories.GetCommentRepository();
+            try
+            {
+                return commentRepository.Filter(e => e.LotId == lotId).ToList();
+            }
+            catch (Exception e)
+            {
+                throw new CommentServiceException(e.Message);
             }
         }
     }

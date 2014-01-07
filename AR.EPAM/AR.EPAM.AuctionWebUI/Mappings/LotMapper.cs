@@ -23,7 +23,8 @@ namespace AR.EPAM.AuctionWebUI.Mappings
                 Name = entity.Name,
                 Owner = entity.Owner,
                 StartPrice = entity.StartPrice,
-                Id = entity.Id
+                Id = entity.Id,
+                CommentViewModel = new CommentViewModel { Comments = new HashSet<Comment>(entity.Comments), LotId = entity.Id }
             };
 
             return viewModel;

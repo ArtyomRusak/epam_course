@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
@@ -28,13 +29,13 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var context = new AuctionContext(Resources.ConnectionString);
+                var context = Factory.GetContext();
                 var unitOfWork = new UnitOfWork(context);
                 var membershipService = new MembershipService(unitOfWork, unitOfWork);
                 try
                 {
                     var user = membershipService.RegisterUser(model.Email, model.UserName, model.Password);
-                    unitOfWork.Dispose();
+                    unitOfWork.Commit();
                     return RedirectToAction("Login");
                 }
                 catch (MembershipServiceException e)
@@ -73,7 +74,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             {
                 try
                 {
-                    var context = new AuctionContext(Resources.ConnectionString);
+                    var context = Factory.GetContext();
                     var unitOfWork = new UnitOfWork(context);
                     var membershipService = new MembershipService(unitOfWork, unitOfWork);
                     var loginUser = membershipService.LoginUser(model.Email, model.Password);
@@ -86,7 +87,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                     var roles = loginUser.Roles.Select(e => e.Name).ToList();
                     string rolesToString = roles.Aggregate("", (current, role) => current + String.Format("{0},", role));
 
-                    unitOfWork.Dispose();
+                    unitOfWork.Commit();
 
                     var ticket = new FormsAuthenticationTicket(3, loginUser.Email, DateTime.Now,
                         DateTime.Now.AddMinutes(20), model.RememberMe, rolesToString);
