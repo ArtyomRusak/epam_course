@@ -7,8 +7,10 @@ using System.Web.UI.WebControls;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models;
+using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
+using AR.EPAM.Services.AuctionServices;
 using AR.EPAM.Services.Exceptions;
 using AR.EPAM.Services.MembershipServices;
 using AttributeRouting.Web.Mvc;
@@ -16,7 +18,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace AR.EPAM.AuctionWebUI.Controllers
 {
-    [Authorize(Roles = "Member")]
+    
     public class MembershipController : Controller
     {
         [HttpGet]
@@ -27,6 +29,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var unitOfWork = new UnitOfWork(context);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
             var profileService = new ProfileService(unitOfWork, unitOfWork);
+            var lotService = new LotService(unitOfWork, unitOfWork);
 
             var user = membershipService.GetUserByUserName(username);
             if (user == null)
@@ -34,21 +37,37 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                 unitOfWork.Commit();
                 return RedirectToAction("Index", "Home");
             }
+
+            var mapper = new ProfileMapper();
+            var lots = lotService.GetLotsByOwnderId(user.Id);
+            var biddedLots = lotService.GetLotsWhereUserTakeBid(user.Id);
+
+            
             var profile = profileService.GetProfileByUserId(user.Id);
 
             if (profile == null)
             {
+                var viewModelNull = new ProfileViewModel
+                {
+                    Lots = new HashSet<Lot>(lots),
+                    BiddedLots = new HashSet<Lot>(biddedLots)
+                };
+
                 unitOfWork.Commit();
-                return RedirectToAction("NoProfile", "Helper");
+
+                return View(viewModelNull);
             }
+
+            var viewModel = mapper.MapEntityToViewModel(profile);
+            viewModel.Lots = new HashSet<Lot>(lots);
+            viewModel.BiddedLots = new HashSet<Lot>(biddedLots);
 
             unitOfWork.Commit();
 
-            var mapper = new ProfileMapper();
-            var viewModel = mapper.MapEntityToViewModel(profile);
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Member")]
         [HttpGet]
         [AttributeRouting.Web.Mvc.Route("YourPage")]
         public ActionResult UserPage()
@@ -66,6 +85,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Member")]
         [HttpGet]
         [AttributeRouting.Web.Mvc.Route("{username}/profile")]
         public ActionResult EditProfile(string username)
@@ -107,6 +127,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             }
         }
 
+        [Authorize(Roles = "Member")]
         [HttpPost]
         public ActionResult EditProfile(ProfileViewModel model)
         {

@@ -116,17 +116,17 @@ namespace AR.EPAM.Services.AuctionServices
             return commentRepository.All().Where(e => e.UserId == userId).Select(e => e.Lot).Distinct().ToList();
         }
 
-        public List<Lot> GetLotsWhereUserIsOwner(int userId)
+        public List<Lot> GetLotsWhereUserTakeBid(int userId)
         {
             var lotRepository = _factoryOfRepositories.GetLotRepository();
             try
             {
-                return lotRepository.Filter(e => e.OwnerId == userId).ToList();
+                return lotRepository.All().Where(w => w.Bids.Select(e => e.UserId).Contains(userId)).Distinct().ToList();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                throw new LotServiceException(exception.Message);
+                throw new LotServiceException(ex.Message);
             }
-        }
+        } 
     }
 }
