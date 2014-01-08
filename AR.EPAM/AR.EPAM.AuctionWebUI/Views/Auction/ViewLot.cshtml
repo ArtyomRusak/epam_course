@@ -8,7 +8,7 @@
 
 <div>
     <h1>
-        Owner of the lot @Html.ActionLink(@Model.Name, "ProfilePage", "Membership", new { username = @Model.Owner.UserName }, null)
+        Owner of the lot @Html.ActionLink(@Model.Owner.UserName, "ProfilePage", "Membership", new { username = @Model.Owner.UserName }, null)
     </h1>
     <hr />
     <dl class="dl-horizontal">
@@ -84,7 +84,7 @@
 
     </dl>
 
-    @using (Html.BeginForm("ViewLot", "Auction", FormMethod.Post, new { id = "form" }))
+    @using (Html.BeginForm("ViewLot", "Auction", FormMethod.Post, new { id = "bidForm" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
@@ -111,28 +111,39 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $("#form").on("submit", function (event) {
-            //event.preventDefault();
-            var value = parseFloat(@Model.CurrentPrice);
-            if ($("#form").validate().form()) {
-                if ($("#BidValue").val() > value) {
+    <script type="text/javascript">
+        $(function () {
+            $("#bidForm").submit(function (event) {
+                event.preventDefault();
 
-                } else {
-                    event.preventDefault();
-                    alert("Bad bid, bro!");
+                var value = parseFloat('@Model.CurrentPrice');
+                var bidEmail = $("#bidEmail").val();
+                var userEmail = "@Model.Owner.Email";
+                if ($("#bidForm").validate().form()) {
+                    if (parseFloat($("#BidValue").val()) > value) {
+                        if (bidEmail != userEmail) {
+                            alert("Success");
+                            $.post("/auction/viewlot", { BidValue: $("#BidValue").val(), bidEmail: $("#bidEmail").val(), lotId: $("#lotId").val() }, function () {
+                                window.location.href = '@Url.Action("ViewLot", "Auction", new {id = @Model.Id})';
+                            });
+                        } else {
+                            alert("Bid to your lot? :)");
+                        }
+                    } else {
+                        alert("Bad bid, bro!");
+                    }
                 }
-            }
-        });
+            });
 
-        $("#commentForm").on("submit", function (event) {
-            event.preventDefault();
-            if ($("#commentForm").validate().form()) {
-                $.post("/auction/getcommentpartial", $("#commentForm").serialize(), function (data) {
-                    $("#commentDiv").html(data);
-                    $("#Description").val("");
-                });
-            }
+            $("#commentForm").on("submit", function (event) {
+                event.preventDefault();
+                if ($("#commentForm").validate().form()) {
+                    $.post('@Url.Action("GetCommentPartial", "Auction")', $("#commentForm").serialize(), function (data) {
+                        $("#commentDiv").html(data);
+                        $("#Description").val("");
+                    });
+                }
+            });
         });
     </script>
 }
