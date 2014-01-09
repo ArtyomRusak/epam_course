@@ -8,7 +8,7 @@
 
 <div>
     <h1>
-        Owner of the lot @Html.ActionLink(@Model.Owner.UserName, "ProfilePage", "Membership", new { username = @Model.Owner.UserName }, null)
+        Owner of the lot - @Html.ActionLink(@Model.Owner.UserName, "ProfilePage", "Membership", new { username = @Model.Owner.UserName }, null)
     </h1>
     <hr />
     <dl class="dl-horizontal">
