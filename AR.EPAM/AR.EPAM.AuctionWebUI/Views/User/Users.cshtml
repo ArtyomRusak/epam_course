@@ -1,0 +1,60 @@
+﻿@model AR.EPAM.AuctionWebUI.Models.AdministrationViewModels.IndexUserViewModel
+
+<hr />
+@using (Html.BeginForm("Users", "User", FormMethod.Post, new { id = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <h3>Search:</h3>
+        <p></p>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FindString)
+                @Html.DropDownListFor(model => model.SelectedCriterion, new SelectList(Model.Criteria, 0))
+                @Html.ValidationMessageFor(model => model.FindString)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Find" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<h3>Last registered users.</h3>
+<p id="information" class="field-validation-error"></p>
+<div class="form-horizontal" id="usersPartial">
+    @Html.Partial("_UsersPartial", Model.UsersPartialViewModel)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $("#form").submit(function (event) {
+                event.preventDefault();
+
+                debugger;
+
+                if ($("#form").validate().form()) {
+                var postData = { findString: $("#FindString").val(), selectedCriterion: $("#SelectedCriterion").val() };
+                    $.post('@Url.Action("UsersPartial", "User")', postData, function (data) {
+                        if (data == null) {
+                            $("#information").val("There is no such users!");
+                        } else {
+                            $("#usersPartial").html(data);
+                            $("#FindString").val("");
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+}

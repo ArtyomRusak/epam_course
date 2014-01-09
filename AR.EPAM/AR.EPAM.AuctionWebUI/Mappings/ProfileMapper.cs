@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using AR.EPAM.AuctionWebUI.Models;
+using AR.EPAM.AuctionWebUI.Models.MembershipViewModels;
 using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;

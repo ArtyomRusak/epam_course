@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Models;
+using AR.EPAM.AuctionWebUI.Models.MembershipViewModels;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
 using AR.EPAM.Services.Exceptions;
@@ -99,7 +100,12 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                     }
                     Response.Cookies.Add(cookie);
 
-                    return RedirectToAction("Index", "Home");
+                    string returnUrl = HttpContext.Request.QueryString["ReturnUrl"];
+                    if (returnUrl == null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    return Redirect(returnUrl);
                 }
                 catch (MembershipServiceException e)
                 {

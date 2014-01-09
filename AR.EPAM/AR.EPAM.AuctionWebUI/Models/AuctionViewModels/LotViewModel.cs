@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.Core.Entities.Membership;
 
-namespace AR.EPAM.AuctionWebUI.Models
+namespace AR.EPAM.AuctionWebUI.Models.AuctionViewModels
 {
     public class LotViewModel : ViewModel
     {

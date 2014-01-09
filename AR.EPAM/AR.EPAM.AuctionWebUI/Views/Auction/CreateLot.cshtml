@@ -1,10 +1,8 @@
-﻿@model AR.EPAM.AuctionWebUI.Models.CreateLotViewModel
+﻿@model AR.EPAM.AuctionWebUI.Models.AuctionViewModels.CreateLotViewModel
 
 @{
     ViewBag.Title = "CreateLot";
 }
-
-<h2>CreateLot</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +10,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Creation of lot</h4>
+        <h3>Creation of lot</h3>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -65,25 +63,27 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $("#MainCategories").click(function() {
-            var value;
+        $(function () {
+            $("#MainCategories").click(function () {
+                var value;
 
-            $("#MainCategories :selected").each(function(i, selected) {
-                value = selected.text;
-            });
+                $("#MainCategories :selected").each(function (i, selected) {
+                    value = selected.text;
+                });
 
-            var postData = { categoryName: value };
-            $.ajax({
-                type: "POST",
-                url: "/auction/getcategories",
-                data: postData,
-                success: function(data) {
-                    $("#SubCategories").children().remove();
-                    for (var i = 0; i < data.length; i++) {
-                        $("#SubCategories").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
-                    }
-                },
-                traditional: true
+                var postData = { categoryName: value };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCategories", "Auction")',
+                    data: postData,
+                    success: function (data) {
+                        $("#SubCategories").children().remove();
+                        for (var i = 0; i < data.length; i++) {
+                            $("#SubCategories").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
+                        }
+                    },
+                    traditional: true
+                });
             });
         })
     </script>

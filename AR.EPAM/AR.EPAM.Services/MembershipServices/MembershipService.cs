@@ -42,7 +42,7 @@ namespace AR.EPAM.Services.MembershipServices
             {
                 throw new MembershipServiceException("User is registered.");
             }
-            user = new User { Email = email, UserName = userName, PasswordSalt = DateTime.Now.ToString() };
+            user = new User { Email = email, UserName = userName, PasswordSalt = DateTime.Now.ToString(), RegisterDate = DateTime.Now };
 
             Guard.AgainstEmptyStringOrNull(password, "password");
             user.SetPassword(password);
@@ -169,6 +169,32 @@ namespace AR.EPAM.Services.MembershipServices
             try
             {
                 userRepository.Update(user);
+            }
+            catch (Exception ex)
+            {
+                throw new MembershipServiceException(ex.Message);
+            }
+        }
+
+        public List<User> GetLastRegisteredUsers(int count)
+        {
+            var userRepository = _factoryOfRepositories.GetUserRepository();
+            try
+            {
+                return userRepository.All().OrderByDescending(e => e.RegisterDate).Take(count).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new MembershipServiceException(ex.Message);
+            }
+        }
+
+        public List<User> GetUsersByUserNameContaining(string username)
+        {
+            var userRepository = _factoryOfRepositories.GetUserRepository();
+            try
+            {
+                return userRepository.Filter(e => e.UserName.Contains(username)).ToList();
             }
             catch (Exception ex)
             {

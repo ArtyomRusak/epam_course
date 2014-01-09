@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AR.EPAM.AuctionWebUI.Models;
+using AR.EPAM.AuctionWebUI.Models.AuctionViewModels;
 using AR.EPAM.Core.Entities.Auction;
 
 namespace AR.EPAM.AuctionWebUI.Mappings

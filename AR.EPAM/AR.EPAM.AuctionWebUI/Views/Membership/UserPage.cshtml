@@ -1,10 +1,10 @@
-﻿@model AR.EPAM.AuctionWebUI.Models.UserViewModel
+﻿@model AR.EPAM.AuctionWebUI.Models.MembershipViewModels.UserViewModel
 
 @{
     ViewBag.Title = "UserPage";
 }
 
-<h1> @Model.UserName page </h1>
+<h1> @Model.UserName page. Link to your profile - @Html.ActionLink("LINK", "ProfilePage", "Membership", new { username = Model.UserName }, null) </h1>
 
 @Html.ActionLink("Edit profile", "EditProfile", "Membership", new { username = @Model.UserName }, null)
 <p></p>
@@ -14,8 +14,15 @@
 <h1>
     Your own lots!
 </h1>
-@foreach (var lot in Model.Lots)
+@if (Model.Lots.Count != 0)
 {
-    @Html.ActionLink(lot.Name, "ViewLot", "Auction", new { id = lot.Id }, null)
-    <p></p>
+    foreach (var lot in Model.Lots)
+    {
+        @Html.ActionLink(lot.Name, "ViewLot", "Auction", new { id = lot.Id }, null)
+        <p></p>
+    }
+}
+else
+{
+    <h4>You haven't got lots.</h4>
 }

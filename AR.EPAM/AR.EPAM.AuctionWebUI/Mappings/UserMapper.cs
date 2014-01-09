@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AR.EPAM.AuctionWebUI.Models;
+using AR.EPAM.AuctionWebUI.Models.MembershipViewModels;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.Core.Entities.Membership;
 

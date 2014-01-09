@@ -1,4 +1,4 @@
-﻿@model AR.EPAM.AuctionWebUI.Models.LotViewModel
+﻿@model AR.EPAM.AuctionWebUI.Models.AuctionViewModels.LotViewModel
 
 @{
     ViewBag.Title = "ViewLot";
@@ -123,7 +123,7 @@
                     if (parseFloat($("#BidValue").val()) > value) {
                         if (bidEmail != userEmail) {
                             alert("Success");
-                            $.post("/auction/viewlot", { BidValue: $("#BidValue").val(), bidEmail: $("#bidEmail").val(), lotId: $("#lotId").val() }, function () {
+                            $.post('@Url.Action("ViewLot", "Auction")', { bidValue: $("#BidValue").val(), bidEmail: $("#bidEmail").val(), lotId: $("#lotId").val() }, function () {
                                 window.location.href = '@Url.Action("ViewLot", "Auction", new {id = @Model.Id})';
                             });
                         } else {
@@ -135,8 +135,9 @@
                 }
             });
 
-            $("#commentForm").on("submit", function (event) {
+            $("#commentForm").submit(function (event) {
                 event.preventDefault();
+                
                 if ($("#commentForm").validate().form()) {
                     $.post('@Url.Action("GetCommentPartial", "Auction")', $("#commentForm").serialize(), function (data) {
                         $("#commentDiv").html(data);

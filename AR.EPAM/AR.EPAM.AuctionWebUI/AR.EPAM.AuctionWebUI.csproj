@@ -135,6 +135,10 @@
     <Content Include="Views\Auction\ViewLot.cshtml" />
     <Content Include="Views\Helper\NoProfile.cshtml" />
     <Content Include="Views\Shared\_CommentPartial.cshtml" />
+    <Content Include="Views\User\Users.cshtml" />
+    <Content Include="Views\Shared\_UsersPartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\User\UsersById.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -185,6 +189,8 @@
     <Compile Include="App_Start\NinjectWeb.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Administration\AdminController.cs" />
+    <Compile Include="Controllers\Administration\UserController.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,14 +203,16 @@
     <Compile Include="Mappings\LotMapper.cs" />
     <Compile Include="Mappings\ProfileMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
-    <Compile Include="Models\CategoriesViewModel.cs" />
+    <Compile Include="Models\AdministrationViewModels\IndexUserViewModel.cs" />
+    <Compile Include="Models\AdministrationViewModels\UsersPartialViewModel.cs" />
+    <Compile Include="Models\AuctionViewModels\CategoriesViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
-    <Compile Include="Models\CreateLotViewModel.cs" />
-    <Compile Include="Models\LoginUserViewModel.cs" />
-    <Compile Include="Models\LotViewModel.cs" />
-    <Compile Include="Models\ProfileViewModel.cs" />
-    <Compile Include="Models\RegisterUserViewModel.cs" />
-    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\AuctionViewModels\CreateLotViewModel.cs" />
+    <Compile Include="Models\MembershipViewModels\LoginUserViewModel.cs" />
+    <Compile Include="Models\AuctionViewModels\LotViewModel.cs" />
+    <Compile Include="Models\MembershipViewModels\ProfileViewModel.cs" />
+    <Compile Include="Models\MembershipViewModels\RegisterUserViewModel.cs" />
+    <Compile Include="Models\MembershipViewModels\UserViewModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">

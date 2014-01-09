@@ -10,6 +10,7 @@ using System.Web.Security;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models;
+using AR.EPAM.AuctionWebUI.Models.AuctionViewModels;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.EFData;
 using AR.EPAM.EFData.EFContext;
@@ -75,6 +76,8 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         [HttpPost]
         public ActionResult CreateLot(CreateLotViewModel model)
         {
+            model.Categories = new HashSet<Category>();
+            model.Currencies = new HashSet<string>();
             if (ModelState.IsValid)
             {
                 try
@@ -116,6 +119,13 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var unitOfWork = new UnitOfWork(context);
             var lotService = new LotService(unitOfWork, unitOfWork);
             var lot = lotService.GetLotById(id);
+
+            if (lot == null)
+            {
+                unitOfWork.Commit();
+                return RedirectToAction("Index", "Home");
+                //TODO: Need to implement helper.
+            }
 
             var mapper = new LotMapper();
             var viewModel = mapper.MapEntityToViewModel(lot);

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.Core.Entities.Membership;
 
-namespace AR.EPAM.AuctionWebUI.Models
+namespace AR.EPAM.AuctionWebUI.Models.MembershipViewModels
 {
     public class UserViewModel : ViewModel
     {

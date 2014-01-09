@@ -1,4 +1,4 @@
-﻿@model AR.EPAM.AuctionWebUI.Models.ProfileViewModel
+﻿@model AR.EPAM.AuctionWebUI.Models.MembershipViewModels.ProfileViewModel
 
 @{
     ViewBag.Title = "EditProfile";
@@ -61,11 +61,14 @@
 
 @section Scripts {
     <script>
-        $("#form").on("submit", function (event) {
-            event.preventDefault();
-            $.post("/membership/editprofile", $("#form").serialize(), function () {
-                $("#_text").text("Changes saved.");
-            });
+        $(function () {
+            $("#form").submit(function (event) {
+                event.preventDefault();
+
+                $.post('@Url.Action("EditProfile", "Membership")', $("#form").serialize(), function () {
+                    $("#_text").text("Changes saved.");
+                });
+            })
         })
     </script>
 }

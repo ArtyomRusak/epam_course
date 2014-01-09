@@ -70,6 +70,15 @@ namespace AR.EPAM.AuctionWebUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 10.
+        /// </summary>
+        internal static string CountOfUsers {
+            get {
+                return ResourceManager.GetString("CountOfUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User is registered..
         /// </summary>
         internal static string EmailExist {

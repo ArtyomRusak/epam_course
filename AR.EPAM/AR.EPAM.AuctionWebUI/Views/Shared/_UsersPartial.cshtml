@@ -1,0 +1,10 @@
+﻿@using AR.EPAM.Core.Entities.Auction
+@model AR.EPAM.AuctionWebUI.Models.AdministrationViewModels.UsersPartialViewModel
+
+<hr />
+
+@foreach (var user in Model.Users)
+{
+    @Html.ActionLink(user.UserName, "UsersById", "User", new { userId = user.Id }, null)
+    <hr />
+}

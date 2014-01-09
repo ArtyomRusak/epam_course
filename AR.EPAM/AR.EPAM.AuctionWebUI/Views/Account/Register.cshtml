@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using System.Web.Optimization
-@model AR.EPAM.AuctionWebUI.Models.RegisterUserViewModel
+@model AR.EPAM.AuctionWebUI.Models.MembershipViewModels.RegisterUserViewModel
 
 @{
     ViewBag.Title = "Register";
@@ -54,14 +54,16 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $("#form").on("submit", function (event) {
-            event.preventDefault();
-            if ($("#form").validate().form()) {
-                $.post("/register", $("#form").serialize(), function () {
-                    window.location.href = '@Url.Action("Login")';
-                });
-            }
+    <script type="text/javascript">
+        $(function () {
+            $("#form").submit(function (event) {
+                event.preventDefault();
+                if ($("#form").validate().form()) {
+                    $.post('@Url.Action("Register", "Account")', $("#form").serialize(), function () {
+                        window.location.href = '@Url.Action("Login")';
+                    });
+                }
+            });
         })
     </script>
 }
