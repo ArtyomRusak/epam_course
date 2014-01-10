@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.ApplicationServices;
 using System.Web.Mvc;
 using AR.EPAM.AuctionWebUI.IoC;
+using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models.AdministrationViewModels;
 using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.EFData;
 using AR.EPAM.Services.MembershipServices;
-using AttributeRouting;
-using AttributeRouting.Web.Mvc;
-using Microsoft.Ajax.Utilities;
+using ProfileService = AR.EPAM.Services.MembershipServices.ProfileService;
 
 namespace AR.EPAM.AuctionWebUI.Controllers.Administration
 {
@@ -35,10 +33,86 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
             return View(viewModel);
         }
 
-        [AttributeRouting.Web.Mvc.Route("admin/users/{userId}")]
-        public ActionResult UsersById(int? userId)
+        [HttpGet]
+        [AttributeRouting.Web.Mvc.Route("admin/users/{userId:int}")]
+        public ActionResult UsersById(int userId)
         {
-            return View();
+
+            var context = Factory.GetContext();
+            var unitOfWork = new UnitOfWork(context);
+            var membershipService = new MembershipService(unitOfWork, unitOfWork);
+            var profileService = new ProfileService(unitOfWork, unitOfWork);
+            var mapper = new UserProfileMapper();
+            AdminUserViewModel viewModel;
+
+            var user = membershipService.GetUserById(userId);
+
+            if (user == null)
+            {
+                unitOfWork.Commit();
+                return RedirectToAction("Users");
+            }
+
+            var profile = profileService.GetProfileByUserId(user.Id);
+            viewModel = profile == null ? mapper.MapEntityWithoutProfile(user) : mapper.MapEntitiesToViewModel(user, profile);
+
+            unitOfWork.Commit();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult UsersById(AdminUserViewModel model)
+        {
+            var context = Factory.GetContext();
+            var unitOfWork = new UnitOfWork(context);
+            var membershipService = new MembershipService(unitOfWork, unitOfWork);
+            var profileService = new ProfileService(unitOfWork, unitOfWork);
+            var mapper = new UserProfileMapper();
+
+            var user = membershipService.GetUserById(model.UserId);
+            var profile = profileService.GetProfileByUserId(user.Id);
+            var role = membershipService.GetRoleByName(Resources.Administrator);
+
+            if (profile == null)
+            {
+                profile = profileService.CreateProfile(model.Name, model.Surname, model.Patronymic, model.City,
+                    model.PhoneNumber, model.UserId);
+            }
+            else
+            {
+                mapper.UpdateProfile(profile, model);
+                profileService.UpdateProfile(profile);
+            }
+
+            if (model.IsAdministrator)
+            {
+                if (user.Roles.Select(e => e.Name).Contains(Resources.Administrator))
+                {
+                    unitOfWork.Commit();
+                    return null;
+                }
+                else
+                {
+                    user.Roles.Add(role);
+                    unitOfWork.Commit();
+                    return null;
+                }
+            }
+            else
+            {
+                if (user.Roles.Select(e => e.Name).Contains(Resources.Administrator))
+                {
+                    user.Roles.Remove(role);
+                    unitOfWork.Commit();
+                    return null;
+                }
+                else
+                {
+                    unitOfWork.Commit();
+                    return null;
+                }
+            }
         }
 
         [HttpPost]

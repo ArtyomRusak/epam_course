@@ -61,6 +61,15 @@ namespace AR.EPAM.AuctionWebUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        internal static string Administrator {
+            get {
+                return ResourceManager.GetString("Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auction.
         /// </summary>
         internal static string ConnectionString {

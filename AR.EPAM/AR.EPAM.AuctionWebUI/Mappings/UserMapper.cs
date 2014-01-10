@@ -17,6 +17,7 @@ namespace AR.EPAM.AuctionWebUI.Mappings
             {
                 Email = entity.Email,
                 UserName = entity.UserName,
+                RegisterDate = entity.RegisterDate,
                 Lots = (HashSet<Lot>) entity.Lots,
                 Roles = (HashSet<Role>) entity.Roles
             };

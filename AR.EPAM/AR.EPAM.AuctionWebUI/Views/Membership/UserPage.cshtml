@@ -4,7 +4,19 @@
     ViewBag.Title = "UserPage";
 }
 
-<h1> @Model.UserName page. Link to your profile - @Html.ActionLink("LINK", "ProfilePage", "Membership", new { username = Model.UserName }, null) </h1>
+
+@if (HttpContext.Current.User.IsInRole("Administrator"))
+{
+    <h1>
+        You are administrator!
+    </h1>
+}
+
+<h2> @Model.UserName page. Link to your profile - @Html.ActionLink("LINK", "ProfilePage", "Membership", new { username = Model.UserName }, null) </h2>
+
+<h4>
+    On the site from @Model.RegisterDate.ToShortDateString()
+</h4>
 
 @Html.ActionLink("Edit profile", "EditProfile", "Membership", new { username = @Model.UserName }, null)
 <p></p>

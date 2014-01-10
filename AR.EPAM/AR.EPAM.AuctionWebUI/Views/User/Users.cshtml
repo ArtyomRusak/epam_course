@@ -28,7 +28,7 @@
 }
 
 
-<h3>Last registered users.</h3>
+<h3 id="tag">Last registered users.</h3>
 <p id="information" class="field-validation-error"></p>
 <div class="form-horizontal" id="usersPartial">
     @Html.Partial("_UsersPartial", Model.UsersPartialViewModel)
@@ -50,6 +50,7 @@
                             $("#information").val("There is no such users!");
                         } else {
                             $("#usersPartial").html(data);
+                            $("#tag").val("Results found");
                             $("#FindString").val("");
                         }
                     });

@@ -62,13 +62,13 @@
 @section Scripts {
     <script>
         $(function () {
-            $("#form").submit(function (event) {
+            $("#form").submit(function(event) {
                 event.preventDefault();
 
-                $.post('@Url.Action("EditProfile", "Membership")', $("#form").serialize(), function () {
+                $.post('@Url.Action("EditProfile", "Membership")', $("#form").serialize(), function() {
                     $("#_text").text("Changes saved.");
                 });
-            })
+            });
         })
     </script>
 }

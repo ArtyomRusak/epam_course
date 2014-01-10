@@ -203,6 +203,8 @@
     <Compile Include="Mappings\LotMapper.cs" />
     <Compile Include="Mappings\ProfileMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
+    <Compile Include="Mappings\UserProfileMapper.cs" />
+    <Compile Include="Models\AdministrationViewModels\AdminUserViewModel.cs" />
     <Compile Include="Models\AdministrationViewModels\IndexUserViewModel.cs" />
     <Compile Include="Models\AdministrationViewModels\UsersPartialViewModel.cs" />
     <Compile Include="Models\AuctionViewModels\CategoriesViewModel.cs" />

@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using AR.EPAM.AuctionWebUI.IoC;
-using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.AuctionWebUI.Models.MembershipViewModels;
 using AR.EPAM.EFData;
-using AR.EPAM.EFData.EFContext;
 using AR.EPAM.Services.Exceptions;
 using AR.EPAM.Services.MembershipServices;
-using AttributeRouting.Web.Mvc;
 
 namespace AR.EPAM.AuctionWebUI.Controllers
 {
