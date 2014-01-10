@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.ApplicationServices;
 using System.Web.Mvc;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
@@ -8,7 +7,6 @@ using AR.EPAM.AuctionWebUI.Models.AdministrationViewModels;
 using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.EFData;
 using AR.EPAM.Services.MembershipServices;
-using ProfileService = AR.EPAM.Services.MembershipServices.ProfileService;
 
 namespace AR.EPAM.AuctionWebUI.Controllers.Administration
 {
@@ -43,7 +41,6 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
             var profileService = new ProfileService(unitOfWork, unitOfWork);
             var mapper = new UserProfileMapper();
-            AdminUserViewModel viewModel;
 
             var user = membershipService.GetUserById(userId);
 
@@ -54,7 +51,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
             }
 
             var profile = profileService.GetProfileByUserId(user.Id);
-            viewModel = profile == null ? mapper.MapEntityWithoutProfile(user) : mapper.MapEntitiesToViewModel(user, profile);
+            AdminUserViewModel viewModel = profile == null ? mapper.MapEntityWithoutProfile(user) : mapper.MapEntitiesToViewModel(user, profile);
 
             unitOfWork.Commit();
 
