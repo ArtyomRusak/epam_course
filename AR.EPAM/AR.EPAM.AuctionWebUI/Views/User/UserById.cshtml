@@ -54,7 +54,7 @@
     }
 </div>
 
-@using (Html.BeginForm("UsersById", "User", FormMethod.Post, new { id = "form" }))
+@using (Html.BeginForm("UserById", "User", FormMethod.Post, new { id = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -123,7 +123,7 @@
 
                 debugger;
 
-                $.post('@Url.Action("UsersById", "User")', $("#form").serialize(), function () {
+                $.post('@Url.Action("UserById", "User")', $("#form").serialize(), function () {
                     $("#information").text("Changes saved.");
                 });
             });

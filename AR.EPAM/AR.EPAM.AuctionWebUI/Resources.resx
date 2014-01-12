@@ -123,6 +123,9 @@
   <data name="ConnectionString" xml:space="preserve">
     <value>Auction</value>
   </data>
+  <data name="CountOfLots" xml:space="preserve">
+    <value>10</value>
+  </data>
   <data name="CountOfUsers" xml:space="preserve">
     <value>10</value>
   </data>

@@ -130,15 +130,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\Categories.js" />
     <Content Include="Views\Membership\ProfilePage.cshtml" />
     <Content Include="Views\Auction\CreateLot.cshtml" />
     <Content Include="Views\Auction\ViewLot.cshtml" />
     <Content Include="Views\Helper\NoProfile.cshtml" />
-    <Content Include="Views\Shared\_CommentPartial.cshtml" />
+    <Content Include="Views\Auction\_CommentPartial.cshtml" />
     <Content Include="Views\User\Users.cshtml" />
-    <Content Include="Views\Shared\_UsersPartial.cshtml" />
+    <Content Include="Views\User\_UsersPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\User\UsersById.cshtml" />
+    <Content Include="Views\User\UserById.cshtml" />
+    <Content Include="Views\Shared\_CategoryPartial.cshtml" />
+    <Content Include="Views\Lot\Lots.cshtml" />
+    <Content Include="Views\Lot\_LotsPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -194,19 +198,25 @@
     <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Administration\LotController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\Factory.cs" />
+    <Compile Include="Mappings\AdminLotMapper.cs" />
     <Compile Include="Mappings\IMapper.cs" />
     <Compile Include="Mappings\LotMapper.cs" />
     <Compile Include="Mappings\ProfileMapper.cs" />
     <Compile Include="Mappings\UserMapper.cs" />
     <Compile Include="Mappings\UserProfileMapper.cs" />
+    <Compile Include="Models\AdministrationViewModels\AdminLotViewModel.cs" />
     <Compile Include="Models\AdministrationViewModels\AdminUserViewModel.cs" />
-    <Compile Include="Models\AdministrationViewModels\IndexUserViewModel.cs" />
+    <Compile Include="Models\AdministrationViewModels\LotsPartialViewModel.cs" />
+    <Compile Include="Models\AdministrationViewModels\SearchLotViewModel.cs" />
+    <Compile Include="Models\AdministrationViewModels\SearchUserViewModel.cs" />
     <Compile Include="Models\AdministrationViewModels\UsersPartialViewModel.cs" />
+    <Compile Include="Models\AuctionViewModels\BidsViewModel.cs" />
     <Compile Include="Models\AuctionViewModels\CategoriesViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\AuctionViewModels\CreateLotViewModel.cs" />

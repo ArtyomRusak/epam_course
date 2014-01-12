@@ -5,7 +5,7 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateLot", "Auction", FormMethod.Post, new { id = "createForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -47,10 +47,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.ListBox("MainCategories", new SelectList(Model.Categories.Where(e => e.ParentCategoryId == null).Select(e => e.Name)))
-            @Html.ListBoxFor(model => model.SelectedCategory, new SelectList(new List<string>()), new { id = "SubCategories" })
-        </div>
+        @Html.Partial("_CategoryPartial", Model.CategoriesViewModel)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -62,7 +59,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
+    @Scripts.Render("~/bundles/categories")
+    @*Opera can not download categories.js... Chrome can.*@
+
+    @*<script type="text/javascript">
         $(function () {
             $("#MainCategories").click(function () {
                 var value;
@@ -71,10 +71,12 @@
                     value = selected.text;
                 });
 
+                //debugger;
+
                 var postData = { categoryName: value };
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetCategories", "Auction")',
+                    url: '/auction/getcategories',
                     data: postData,
                     success: function (data) {
                         $("#SubCategories").children().remove();
@@ -86,5 +88,5 @@
                 });
             });
         })
-    </script>
+    </script>*@
 }

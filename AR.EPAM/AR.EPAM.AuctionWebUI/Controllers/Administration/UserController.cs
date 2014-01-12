@@ -10,6 +10,7 @@ using AR.EPAM.Services.MembershipServices;
 
 namespace AR.EPAM.AuctionWebUI.Controllers.Administration
 {
+    [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
         [HttpGet]
@@ -20,7 +21,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
             var unitOfWork = new UnitOfWork(context);
             var membershipService = new MembershipService(unitOfWork, unitOfWork);
 
-            var viewModel = new IndexUserViewModel();
+            var viewModel = new SearchUserViewModel();
             var criteries = new HashSet<string> { "UserName", "Email" };
             var users = membershipService.GetLastRegisteredUsers(int.Parse(Resources.CountOfUsers));
 
@@ -59,7 +60,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
         }
 
         [HttpPost]
-        public ActionResult UsersById(AdminUserViewModel model)
+        public ActionResult UserById(AdminUserViewModel model)
         {
             var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);

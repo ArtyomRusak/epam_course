@@ -1,0 +1,73 @@
+﻿@model AR.EPAM.AuctionWebUI.Models.AdministrationViewModels.SearchLotViewModel
+
+@{
+    ViewBag.Title = "Lots";
+}
+
+<h2>Lots</h2>
+
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "searchForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SearchLotViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Border of prices", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MinBorder)
+                @Html.ValidationMessageFor(model => model.MinBorder)
+                @Html.EditorFor(model => model.MaxBorder)
+                @Html.ValidationMessageFor(model => model.MaxBorder)
+                @Html.DropDownListFor(model => model.SelectedCurrency, new SelectList(Model.Currencies, 0))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.Partial("_CategoryPartial", Model.CategoriesViewModel)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Find" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<h3 id="tag">Last created lots.</h3>
+<p id="information" class="field-validation-error"></p>
+<div id="usersPartial" class="form-horizontal">
+    @Html.Partial("_LotsPartial", Model.LotsPartialViewModel)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/categories")
+    <script type="text/javascript">
+        $(function () {
+            var form = $("#searchForm");
+            form.submit(function (event) {
+                event.preventDefault();
+
+                $.post('@Url.Action("LotsPartial", "Lot")', form.serialize(), function (data) {
+                    $("#usersPartial").html(data);
+                });
+            });
+        })
+    </script>
+}

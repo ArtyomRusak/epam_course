@@ -102,6 +102,17 @@ namespace AR.EPAM.EFData.EFContext.Initializers
             };
             categories.ForEach(e => context.Categories.Add(e));
 
+            var user = new User
+            {
+                Email = "admin@auction.com",
+                PasswordSalt = "admin",
+                Password = -963219798,
+                RegisterDate = DateTime.Now,
+                Roles = new HashSet<Role>(roles),
+                UserName = "Administrator"
+            };
+            context.Users.Add(user);
+
             context.SaveChanges();
         }
     }

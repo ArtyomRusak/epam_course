@@ -40,7 +40,7 @@ namespace AR.EPAM.Services.AuctionServices
                 DurationInDays = duration,
                 CurrencyId = currencyId,
                 OwnerId = ownerId,
-                SectionId = categoryId
+                CategoryId = categoryId
             };
 
             var lotRepository = _factoryOfRepositories.GetLotRepository();
@@ -102,14 +102,6 @@ namespace AR.EPAM.Services.AuctionServices
             }
         }
 
-        //public List<Lot> GetLotsBySectionId(int sectionId)
-        //{
-        //    var lotRepository = _factoryOfRepositories.GetLotRepository();
-        //    var sectionRepository = _factoryOfRepositories.GetSectionRepository();
-        //    //return lotRepository.Filter(e => e.SectionId == sectionId).ToList();
-        //    var section = sectionRepository.GetEntityById(sectionId);
-        //}
-
         public List<Lot> GetListOfLotsWhereUserTakeComments(int userId)
         {
             var commentRepository = _factoryOfRepositories.GetCommentRepository();
@@ -122,6 +114,25 @@ namespace AR.EPAM.Services.AuctionServices
             try
             {
                 return lotRepository.All().Where(w => w.Bids.Select(e => e.UserId).Contains(userId)).Distinct().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new LotServiceException(ex.Message);
+            }
+        }
+
+        public IQueryable<Lot> GetAllLotsIQueryable()
+        {
+            var lotRepository = _factoryOfRepositories.GetLotRepository();
+            return lotRepository.All();
+        }
+
+        public List<Lot> GetLastCreatedLots(int count)
+        {
+            var lotRepository = _factoryOfRepositories.GetLotRepository();
+            try
+            {
+                return lotRepository.All().OrderByDescending(e => e.CreateDate).Take(count).ToList();
             }
             catch (Exception ex)
             {

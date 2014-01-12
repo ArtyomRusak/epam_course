@@ -14,7 +14,7 @@ namespace AR.EPAM.EFData.EFContext.Mappings.Auction
         {
             HasKey(e => e.Id);
             Property(e => e.Name).HasMaxLength(50).IsRequired();
-            HasMany(e => e.Lots).WithRequired(e => e.Category).HasForeignKey(e => e.SectionId);
+            HasMany(e => e.Lots).WithRequired(e => e.Category).HasForeignKey(e => e.CategoryId);
         }
     }
 }

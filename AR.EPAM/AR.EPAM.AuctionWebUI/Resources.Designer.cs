@@ -81,6 +81,15 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to 10.
         /// </summary>
+        internal static string CountOfLots {
+            get {
+                return ResourceManager.GetString("CountOfLots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10.
+        /// </summary>
         internal static string CountOfUsers {
             get {
                 return ResourceManager.GetString("CountOfUsers", resourceCulture);

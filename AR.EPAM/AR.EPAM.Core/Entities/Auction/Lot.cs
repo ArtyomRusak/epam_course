@@ -25,7 +25,7 @@ namespace AR.EPAM.Core.Entities.Auction
         public virtual User Owner { get; set; }
         public int OwnerId { get; set; }
         public virtual Category Category { get; set; }
-        public int SectionId { get; set; }
+        public int CategoryId { get; set; }
         public virtual ICollection<Bid> Bids { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

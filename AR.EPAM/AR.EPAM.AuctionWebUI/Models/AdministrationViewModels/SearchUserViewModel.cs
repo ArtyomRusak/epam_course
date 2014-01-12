@@ -7,9 +7,9 @@ using AR.EPAM.Core.Entities.Membership;
 
 namespace AR.EPAM.AuctionWebUI.Models.AdministrationViewModels
 {
-    public class IndexUserViewModel : ViewModel
+    public class SearchUserViewModel : ViewModel
     {
-        public IndexUserViewModel()
+        public SearchUserViewModel()
         {
             UsersPartialViewModel = new UsersPartialViewModel();
         }

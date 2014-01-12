@@ -19,9 +19,7 @@ namespace AR.EPAM.AuctionWebUI.Models.AuctionViewModels
         public int DurationInDays { get; set; }
         [Required]
         public string SelectedCurrency { get; set; }
-        [Required]
-        public string SelectedCategory { get; set; }
         public HashSet<string> Currencies { get; set; }
-        public HashSet<Category> Categories { get; set; }
+        public CategoriesViewModel CategoriesViewModel { get; set; }
     }
 }

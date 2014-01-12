@@ -52,13 +52,16 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             var currencyService = new CurrencyService(unitOfWork, unitOfWork);
             var categoryService = new CategoryService(unitOfWork, unitOfWork);
 
-            var categories = categoryService.GetAllCategories();
+            var categories = categoryService.GetMainCategories();
             var currencies = currencyService.GetAllCurrencies();
 
             var model = new CreateLotViewModel
             {
                 Currencies = new HashSet<string>(currencies.Select(e => e.Value)),
-                Categories = new HashSet<Category>(categories)
+                CategoriesViewModel = new CategoriesViewModel
+                {
+                    Categories = new HashSet<Category>(categories),
+                }
             };
 
             unitOfWork.Commit();
@@ -67,10 +70,8 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateLot(CreateLotViewModel model)
+        public ActionResult CreateLot(CreateLotViewModel model, string selectedCategory)
         {
-            model.Categories = new HashSet<Category>();
-            model.Currencies = new HashSet<string>();
             if (ModelState.IsValid)
             {
                 try
@@ -81,7 +82,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
                     var categoryService = new CategoryService(unitOfWork, unitOfWork);
                     var currencyService = new CurrencyService(unitOfWork, unitOfWork);
                     var membershipService = new MembershipService(unitOfWork, unitOfWork);
-                    var category = categoryService.GetCategoryByName(model.SelectedCategory);
+                    var category = categoryService.GetCategoryByName(selectedCategory);
                     var currency = currencyService.GetCurrencyByValue(model.SelectedCurrency);
                     var owner = membershipService.GetUserByEmail(HttpContext.User.Identity.Name);
 

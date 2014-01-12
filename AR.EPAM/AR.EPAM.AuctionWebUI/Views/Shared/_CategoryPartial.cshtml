@@ -1,0 +1,6 @@
+﻿@model AR.EPAM.AuctionWebUI.Models.AuctionViewModels.CategoriesViewModel
+
+<div class="form-group">
+    @Html.ListBox("MainCategories", new SelectList(Model.Categories.Select(e => e.Name)))
+    @Html.ListBoxFor(model => model.SelectedCategory, new SelectList(new List<string>()), new { id = "SubCategories" })
+</div>
