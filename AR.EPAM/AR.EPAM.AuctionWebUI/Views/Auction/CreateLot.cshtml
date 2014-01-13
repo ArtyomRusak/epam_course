@@ -60,6 +60,18 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/categories")
+    <script>
+        $("#createForm").submit(function (event) {
+            var value;
+            $("#SubCategories :selected").each(function (i, selected) {
+                value = selected.text;
+            });
+            if (value == undefined) {
+                event.preventDefault();
+                alert("Get category!");
+            }
+        });
+    </script>
     @*Opera can not download categories.js... Chrome can.*@
 
     @*<script type="text/javascript">

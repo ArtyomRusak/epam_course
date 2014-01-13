@@ -32,6 +32,7 @@ namespace AR.EPAM.Services.AuctionServices
                 Price = price,
                 UserId = userId,
                 LotId = lotId,
+                CreateDate = DateTime.Now
             };
 
             var bidRepository = _factoryOfRepositories.GetBidRepository();

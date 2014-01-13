@@ -15,7 +15,7 @@ namespace AR.EPAM.AuctionWebUI.Models.AuctionViewModels
         [Required]
         public string Description { get; set; }
         [Required]
-        [Range(0, 90)]
+        [Range(1, 90)]
         public int DurationInDays { get; set; }
         [Required]
         public string SelectedCurrency { get; set; }

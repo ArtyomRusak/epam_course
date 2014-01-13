@@ -97,6 +97,7 @@
                     <th>UserName</th>
                     <th>Bid value</th>
                     <th>Currency</th>
+                    <th>Date</th>
                 </tr>
 
                 @foreach (var bid in bids)
@@ -110,6 +111,9 @@
                         </td>
                         <td>
                             @Model.Currency.Value
+                        </td>
+                        <td>
+                            @bid.CreateDate
                         </td>
                     </tr>
                 }
