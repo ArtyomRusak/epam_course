@@ -6,7 +6,6 @@ namespace AR.EPAM.AuctionWebUI.Models.AuctionViewModels
 {
     public class CategoriesViewModel : ViewModel
     {
-        [Required]
         public string SelectedCategory { get; set; }
         public HashSet<Category> Categories { get; set; }
     }

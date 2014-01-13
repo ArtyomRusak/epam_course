@@ -121,8 +121,6 @@
             $("#form").submit(function (event) {
                 event.preventDefault();
 
-                debugger;
-
                 $.post('@Url.Action("UserById", "User")', $("#form").serialize(), function () {
                     $("#information").text("Changes saved.");
                 });

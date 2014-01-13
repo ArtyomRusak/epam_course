@@ -143,6 +143,8 @@
     <Content Include="Views\Shared\_CategoryPartial.cshtml" />
     <Content Include="Views\Lot\Lots.cshtml" />
     <Content Include="Views\Lot\_LotsPartial.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Lot\LotById.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

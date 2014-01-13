@@ -16,6 +16,7 @@ namespace AR.EPAM.AuctionWebUI.Models.AdministrationViewModels
         public string Name { get; set; }
         public double StartPrice { get; set; }
         public double CurrentPrice { get; set; }
+        [Required]
         public string Description { get; set; }
         public DateTime CreateDate { get; set; }
         public int DurationInDays { get; set; }

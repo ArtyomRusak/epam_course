@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AR.EPAM.AuctionWebUI.IoC;
+using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models.AdministrationViewModels;
 using AR.EPAM.AuctionWebUI.Models.AuctionViewModels;
 using AR.EPAM.Core.Entities.Auction;
@@ -9,6 +11,7 @@ using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.EFData;
 using AR.EPAM.Services.AuctionServices;
 using AttributeRouting.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using WebGrease;
 
 namespace AR.EPAM.AuctionWebUI.Controllers.Administration
@@ -55,6 +58,9 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
             var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var lotService = new LotService(unitOfWork, unitOfWork);
+            var categoryService = new CategoryService(unitOfWork, unitOfWork);
+            var categories = categoryService.GetMainCategories();
+            var mapper = new AdminLotMapper();
 
             var lot = lotService.GetLotById(lotId);
             if (lot == null)
@@ -63,10 +69,49 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
                 unitOfWork.Commit();
                 return RedirectToAction("Index", "Home");
             }
+            var viewModel = mapper.MapEntityToViewModel(lot);
+            viewModel.CategoriesViewModel = new CategoriesViewModel { Categories = new HashSet<Category>(categories) };
 
+            unitOfWork.Commit();
 
+            return View(viewModel);
+        }
 
-            return View();
+        [HttpPost]
+        public ActionResult LotById(long lotId, string name, string description, string selectedCategory)
+        {
+            var context = Factory.GetContext();
+            var unitOfWork = new UnitOfWork(context);
+            var lotService = new LotService(unitOfWork, unitOfWork);
+            var categoryService = new CategoryService(unitOfWork, unitOfWork);
+            var mapper = new AdminLotMapper();
+
+            var lot = lotService.GetLotById(lotId);
+            if (lot == null)
+            {
+                //TODO: Add helper.
+                unitOfWork.Commit();
+                return RedirectToAction("Lots");
+            }
+
+            Category category = null;
+            if (selectedCategory != null)
+            {
+                category = categoryService.GetCategoryByName(selectedCategory);
+            }
+            mapper.UpdateLot(lot, name, description, category);
+            try
+            {
+                lotService.UpdateLot(lot);
+            }
+            catch (Exception e)
+            {
+                unitOfWork.Rollback();
+                return RedirectToAction("LotById", "Lot", new { lotId = lotId });
+            }
+            unitOfWork.Commit();
+
+            return Json(lot.Category.Name);
         }
 
         [HttpPost]
@@ -83,10 +128,16 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
             var lots = lotService.GetAllLotsIQueryable();
             List<Lot> lotsToFind;
             var currency = currencyService.GetCurrencyByValue(model.SelectedCurrency);
+
             Category category = null;
             if (selectedCategory != null)
             {
                 category = categoryService.GetCategoryByName(selectedCategory);
+            }
+
+            if (model.Name == null)
+            {
+                model.Name = "";
             }
 
             if ((model.MinBorder >= 0) && (model.MaxBorder > 0))

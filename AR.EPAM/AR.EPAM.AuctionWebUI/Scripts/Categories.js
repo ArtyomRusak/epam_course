@@ -1,12 +1,11 @@
 ﻿$(function () {
+    debugger;
     $("#MainCategories").click(function () {
         var value;
 
         $("#MainCategories :selected").each(function (i, selected) {
             value = selected.text;
         });
-
-        //debugger;
 
         var postData = { categoryName: value };
         $.ajax({

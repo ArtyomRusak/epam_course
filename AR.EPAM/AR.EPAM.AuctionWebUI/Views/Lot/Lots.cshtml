@@ -66,6 +66,7 @@
 
                 $.post('@Url.Action("LotsPartial", "Lot")', form.serialize(), function (data) {
                     $("#usersPartial").html(data);
+                    $("#tag").text("Results found");
                 });
             });
         })

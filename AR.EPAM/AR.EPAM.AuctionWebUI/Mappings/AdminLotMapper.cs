@@ -18,6 +18,7 @@ namespace AR.EPAM.AuctionWebUI.Mappings
                 CreateDate = entity.CreateDate,
                 Currency = entity.Currency,
                 CurrentPrice = entity.CurrentPrice,
+                StartPrice = entity.StartPrice,
                 Description = entity.Description,
                 DurationInDays = entity.DurationInDays,
                 LotId = entity.Id,
@@ -35,6 +36,16 @@ namespace AR.EPAM.AuctionWebUI.Mappings
         public Lot MapViewModelToEntity(AdminLotViewModel viewModel)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateLot(Lot entity, string name, string description, Category category)
+        {
+            entity.Name = name;
+            entity.Description = description;
+            if (category != null)
+            {
+                entity.CategoryId = category.Id;
+            }
         }
     }
 }

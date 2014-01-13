@@ -1,10 +1,10 @@
 ﻿@model AR.EPAM.AuctionWebUI.Models.AdministrationViewModels.LotsPartialViewModel
-           
-<hr/>
+
+<hr />
 
 @foreach (var lot in Model.Lots)
 {
-    //ActionLink
-    <hr/>
+    @Html.ActionLink(lot.Name, "LotById", "Lot", new { lotId = lot.Id }, null)
+    <hr />
 }
 
