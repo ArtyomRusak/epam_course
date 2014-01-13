@@ -1,5 +1,4 @@
 ﻿$(function () {
-    debugger;
     $("#MainCategories").click(function () {
         var value;
 

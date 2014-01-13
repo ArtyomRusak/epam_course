@@ -41,8 +41,6 @@
             $("#form").submit(function (event) {
                 event.preventDefault();
 
-                debugger;
-
                 if ($("#form").validate().form()) {
                 var postData = { findString: $("#FindString").val(), selectedCriterion: $("#SelectedCriterion").val() };
                     $.post('@Url.Action("UsersPartial", "User")', postData, function (data) {
