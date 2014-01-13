@@ -8,6 +8,7 @@
 
 @using (Html.BeginForm("LotById", "Lot", FormMethod.Post, new { id = "lotForm" }))
 {
+    @Html.AntiForgeryToken()
     <hr />
     <div class="form-horizontal">
         @Html.ValidationSummary()
