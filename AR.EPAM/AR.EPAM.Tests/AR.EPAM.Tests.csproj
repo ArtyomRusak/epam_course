@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RepositoriesTests.Currency.cs" />
+    <Compile Include="ServiceTests.Membership.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AR.EPAM.Core\AR.EPAM.Core.csproj">
@@ -66,10 +66,15 @@
       <Project>{a326d411-5f9e-430a-bf06-3e07fba264f3}</Project>
       <Name>AR.EPAM.EFData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AR.EPAM.Services\AR.EPAM.Services.csproj">
+      <Project>{12982907-6896-4c10-9169-119ccea9e648}</Project>
+      <Name>AR.EPAM.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Compile Include="ServiceTests.Lot.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

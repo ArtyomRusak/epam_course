@@ -39,27 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Guard\Exceptions\ExceptionBase.cs" />
-    <Compile Include="Guard\Guard.Assignable.cs" />
-    <Compile Include="Guard\Guard.Collections.ConsequentiallyNotEquals.cs" />
-    <Compile Include="Guard\Guard.Collections.Empty.cs" />
-    <Compile Include="Guard\Guard.Collections.СonsequentiallyEquals.cs" />
     <Compile Include="Guard\Guard.Equals.cs" />
     <Compile Include="Guard\Guard.ExceptionThrowing.cs" />
-    <Compile Include="Guard\Guard.False.cs" />
-    <Compile Include="Guard\Guard.Greater.cs" />
-    <Compile Include="Guard\Guard.GreaterOrEquals.cs" />
-    <Compile Include="Guard\Guard.InRange.cs" />
-    <Compile Include="Guard\Guard.Less.cs" />
-    <Compile Include="Guard\Guard.LessOrEquals.cs" />
-    <Compile Include="Guard\Guard.Negatives.Int32.cs" />
-    <Compile Include="Guard\Guard.NotAssignable.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Guard\Exceptions\ExceptionBase.cs" />
     <Compile Include="Guard\Guard.NotEquals.cs" />
-    <Compile Include="Guard\Guard.NotInRange.cs" />
     <Compile Include="Guard\Guard.NullReference.cs" />
     <Compile Include="Guard\Guard.StringIsNullOrEmpty.cs" />
-    <Compile Include="Guard\Guard.True.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
