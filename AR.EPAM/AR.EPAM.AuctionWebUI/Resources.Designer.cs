@@ -22,7 +22,7 @@ namespace AR.EPAM.AuctionWebUI {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace AR.EPAM.AuctionWebUI {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AR.EPAM.AuctionWebUI.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace AR.EPAM.AuctionWebUI {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to Administrator.
         /// </summary>
-        internal static string Administrator {
+        public static string Administrator {
             get {
                 return ResourceManager.GetString("Administrator", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to Auction.
         /// </summary>
-        internal static string ConnectionString {
+        public static string ConnectionString {
             get {
                 return ResourceManager.GetString("ConnectionString", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to 10.
         /// </summary>
-        internal static string CountOfLots {
+        public static string CountOfLots {
             get {
                 return ResourceManager.GetString("CountOfLots", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to 10.
         /// </summary>
-        internal static string CountOfUsers {
+        public static string CountOfUsers {
             get {
                 return ResourceManager.GetString("CountOfUsers", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to User is registered..
         /// </summary>
-        internal static string EmailExist {
+        public static string EmailExist {
             get {
                 return ResourceManager.GetString("EmailExist", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to User doesn&apos;t exist.
         /// </summary>
-        internal static string NullUser {
+        public static string NullUser {
             get {
                 return ResourceManager.GetString("NullUser", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace AR.EPAM.AuctionWebUI {
         /// <summary>
         ///   Looks up a localized string similar to Wrong password entered..
         /// </summary>
-        internal static string WrongPassword {
+        public static string WrongPassword {
             get {
                 return ResourceManager.GetString("WrongPassword", resourceCulture);
             }
