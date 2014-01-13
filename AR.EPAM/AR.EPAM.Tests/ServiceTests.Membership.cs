@@ -43,6 +43,18 @@ namespace AR.EPAM.Tests
         }
 
         [Test]
+        public void ShouldNotLoginUser()
+        {
+            var context = new AuctionContext("AuctionTestNotebook");
+            var unitOfWork = new UnitOfWork(context);
+            var membershipService = new MembershipService(unitOfWork, unitOfWork);
+
+            var loginUser = membershipService.LoginUser("admin123@auction.com", "admin");
+            unitOfWork.Dispose();
+            loginUser.Should().BeNull();
+        }
+
+        [Test]
         public void ShouldBeInRoleAdministrator()
         {
             var context = new AuctionContext("AuctionTestNotebook");
