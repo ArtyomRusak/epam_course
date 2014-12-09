@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
-using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.AuctionWebUI.Models.MembershipViewModels;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.EFData;
@@ -16,7 +15,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
     public class MembershipController : Controller
     {
         [HttpGet]
-        [AttributeRouting.Web.Mvc.Route("profile/{username}")]
+        [Route("profile/{username}")]
         public ActionResult ProfilePage(string username)
         {
             var context = Factory.GetContext();

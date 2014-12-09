@@ -17,10 +17,11 @@ namespace AR.EPAM.AuctionWebUI.Models.AuctionViewModels
         public int DurationInDays { get; set; }
         public Currency Currency { get; set; }
         public User Owner { get; set; }
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
         public ICollection<Bid> Bids { get; set; }
         [Range(0.01, Double.MaxValue)]
         public double BidValue { get; set; }
         public CommentViewModel CommentViewModel { get; set; }
+        public string PathToImage { get; set; }
     }
 }

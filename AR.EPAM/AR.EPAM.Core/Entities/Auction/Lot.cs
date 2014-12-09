@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AR.EPAM.Core.Entities.Membership;
 
 namespace AR.EPAM.Core.Entities.Auction
@@ -26,6 +23,7 @@ namespace AR.EPAM.Core.Entities.Auction
         public int OwnerId { get; set; }
         public virtual Category Category { get; set; }
         public int CategoryId { get; set; }
+        public string PathToImage { get; set; }
         public virtual ICollection<Bid> Bids { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

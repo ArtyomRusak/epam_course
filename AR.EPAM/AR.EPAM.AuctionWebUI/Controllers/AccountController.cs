@@ -14,7 +14,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        [AttributeRouting.Web.Mvc.Route("register")]
+        [Route("register")]
         public ActionResult Register()
         {
             var model = new RegisterUserViewModel();
@@ -57,7 +57,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         }
 
         [HttpGet]
-        [AttributeRouting.Web.Mvc.Route("login")]
+        [Route("login")]
         public ActionResult Login()
         {
             var model = new LoginUserViewModel();

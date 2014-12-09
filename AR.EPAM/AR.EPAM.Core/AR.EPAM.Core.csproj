@@ -46,7 +46,7 @@
     <Compile Include="Entities\Auction\Comment.cs" />
     <Compile Include="Entities\Auction\Currency.cs" />
     <Compile Include="Entities\Auction\Lot.cs" />
-    <Compile Include="Entities\Auction\Section.cs" />
+    <Compile Include="Entities\Auction\Category.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityWithVersion.cs" />
     <Compile Include="Entities\Entity`1.cs" />
