@@ -14,7 +14,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
     public class UserController : Controller
     {
         [HttpGet]
-        [Route("admin/users")]
+        [AttributeRouting.Web.Mvc.Route("admin/users")]
         public ActionResult Users()
         {
             var context = Factory.GetContext();
@@ -33,7 +33,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
         }
 
         [HttpGet]
-        [Route("admin/users/{userId:int}")]
+        [AttributeRouting.Web.Mvc.Route("admin/users/{userId:int}")]
         public ActionResult UserById(int userId)
         {
 

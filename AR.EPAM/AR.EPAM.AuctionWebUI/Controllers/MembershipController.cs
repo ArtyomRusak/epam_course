@@ -15,7 +15,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
     public class MembershipController : Controller
     {
         [HttpGet]
-        [Route("profile/{username}")]
+        [AttributeRouting.Web.Mvc.Route("profile/{username}")]
         public ActionResult ProfilePage(string username)
         {
             var context = Factory.GetContext();

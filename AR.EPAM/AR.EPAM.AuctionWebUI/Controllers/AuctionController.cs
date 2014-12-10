@@ -114,12 +114,12 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             {
                 var fileLocation = HttpContext.Server.MapPath("~/images/lots");
                 file.SaveAs(fileLocation + @"\" + file.FileName);
-                lot.PathToImage = @"\images\lots\" + file.FileName;
+                lot.PathToImage = String.Format("~/images/lots/{0}", file.FileName);
             }
         }
 
         [HttpGet]
-        [Route("lots/{id}")]
+        [AttributeRouting.Web.Mvc.Route("lots/{id}")]
         public ActionResult ViewLot(int? id)
         {
             if (id == null)

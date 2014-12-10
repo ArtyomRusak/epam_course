@@ -15,7 +15,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
     public class LotController : Controller
     {
         [HttpGet]
-        [Route("search/lots")]
+        [AttributeRouting.Web.Mvc.Route("search/lots")]
         public ActionResult Lots()
         {
             var context = Factory.GetContext();
@@ -48,7 +48,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        [Route("admin/lots/{lotId:int}")]
+        [AttributeRouting.Web.Mvc.Route("admin/lots/{lotId:int}")]
         public ActionResult LotById(int lotId)
         {
             var context = Factory.GetContext();
