@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
@@ -70,7 +72,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateLot(CreateLotViewModel model, string selectedCategory)
+        public ActionResult CreateLot(CreateLotViewModel model, string selectedCategory, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +90,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers
 
                     var lot = lotService.CreateLot(model.Name, model.StartPrice, model.DurationInDays, model.Description,
                         currency.Id, owner.Id, category.Id);
+                    AddImageToLot(lot, file);
 
                     unitOfWork.Commit();
 
@@ -105,14 +108,29 @@ namespace AR.EPAM.AuctionWebUI.Controllers
             }
         }
 
+        private void AddImageToLot(Lot lot, HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                var fileLocation = HttpContext.Server.MapPath("~/images/lots");
+                file.SaveAs(fileLocation + @"\" + file.FileName);
+                lot.PathToImage = String.Format("~/images/lots/{0}", file.FileName);
+            }
+        }
+
         [HttpGet]
         [AttributeRouting.Web.Mvc.Route("lots/{id}")]
-        public ActionResult ViewLot(int id)
+        public ActionResult ViewLot(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
             var context = Factory.GetContext();
             var unitOfWork = new UnitOfWork(context);
             var lotService = new LotService(unitOfWork, unitOfWork);
-            var lot = lotService.GetLotById(id);
+            var lot = lotService.GetLotById(id.GetValueOrDefault());
 
             if (lot == null)
             {

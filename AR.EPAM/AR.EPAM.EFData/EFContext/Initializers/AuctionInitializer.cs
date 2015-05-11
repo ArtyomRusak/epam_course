@@ -59,6 +59,7 @@ namespace AR.EPAM.EFData.EFContext.Initializers
             };
             currencies.ForEach(e => context.Currencies.Add(e));
 
+
             var fashion = new Category { Name = "Fashion", ParentCategoryId = null };
             context.Categories.Add(fashion);
             context.SaveChanges();

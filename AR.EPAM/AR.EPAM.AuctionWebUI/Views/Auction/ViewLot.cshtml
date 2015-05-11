@@ -47,6 +47,13 @@
         <dd>
             @Html.DisplayFor(model => model.CreateDate)
         </dd>
+        
+        <dt>
+            Category of the lot
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Description)
@@ -83,6 +90,11 @@
         }
 
     </dl>
+    
+    @if (String.IsNullOrEmpty(@Model.PathToImage) == false)
+    {
+        <img src="@Url.Content(@Model.PathToImage)"/>
+    }
 
     @using (Html.BeginForm("ViewLot", "Auction", FormMethod.Post, new { id = "bidForm" }))
     {

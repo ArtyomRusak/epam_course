@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using AR.EPAM.Core.Entities.Auction;
 
 namespace AR.EPAM.AuctionWebUI.Models.AuctionViewModels
 {

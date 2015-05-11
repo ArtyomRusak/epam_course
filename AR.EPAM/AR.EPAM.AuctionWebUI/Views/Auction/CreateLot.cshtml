@@ -5,7 +5,7 @@
 }
 
 
-@using (Html.BeginForm("CreateLot", "Auction", FormMethod.Post, new { id = "createForm" }))
+@using (Html.BeginForm("CreateLot", "Auction", FormMethod.Post, new { id = "createForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -48,6 +48,8 @@
         </div>
 
         @Html.Partial("_CategoryPartial", Model.CategoriesViewModel)
+        
+        <input type="file" id="file" name="file" title="Choose image to upload"/>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

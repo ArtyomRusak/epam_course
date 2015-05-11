@@ -7,20 +7,15 @@ using AR.EPAM.AuctionWebUI.Mappings;
 using AR.EPAM.AuctionWebUI.Models.AdministrationViewModels;
 using AR.EPAM.AuctionWebUI.Models.AuctionViewModels;
 using AR.EPAM.Core.Entities.Auction;
-using AR.EPAM.Core.Entities.Membership;
 using AR.EPAM.EFData;
 using AR.EPAM.Services.AuctionServices;
-using AttributeRouting.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using WebGrease;
 
 namespace AR.EPAM.AuctionWebUI.Controllers.Administration
 {
-    [Authorize(Roles = "Administrator")]
     public class LotController : Controller
     {
         [HttpGet]
-        [AttributeRouting.Web.Mvc.Route("admin/lots")]
+        [AttributeRouting.Web.Mvc.Route("search/lots")]
         public ActionResult Lots()
         {
             var context = Factory.GetContext();
@@ -52,6 +47,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         [AttributeRouting.Web.Mvc.Route("admin/lots/{lotId:int}")]
         public ActionResult LotById(int lotId)
         {
@@ -78,6 +74,7 @@ namespace AR.EPAM.AuctionWebUI.Controllers.Administration
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult LotById(long lotId, string name, string description, string selectedCategory)
         {
             var context = Factory.GetContext();

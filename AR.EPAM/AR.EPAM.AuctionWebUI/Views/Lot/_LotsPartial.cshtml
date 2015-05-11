@@ -4,7 +4,10 @@
 
 @foreach (var lot in Model.Lots)
 {
-    @Html.ActionLink(lot.Name, "LotById", "Lot", new { lotId = lot.Id }, null)
+    @Html.ActionLink(lot.Name, "ViewLot", "Auction", new { id = lot.Id }, null)
+    if (HttpContext.Current.User.IsInRole("Administrator"))
+    {
+        <p>Link for administrator - @Html.ActionLink(lot.Name, "LotById", "Lot", new { lotId = lot.Id }, null)</p>
+    }
     <hr />
 }
-

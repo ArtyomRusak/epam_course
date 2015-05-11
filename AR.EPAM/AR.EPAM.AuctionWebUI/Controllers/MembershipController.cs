@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using AR.EPAM.AuctionWebUI.IoC;
 using AR.EPAM.AuctionWebUI.Mappings;
-using AR.EPAM.AuctionWebUI.Models;
 using AR.EPAM.AuctionWebUI.Models.MembershipViewModels;
 using AR.EPAM.Core.Entities.Auction;
 using AR.EPAM.EFData;
